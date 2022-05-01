@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +59,18 @@ public class TareaController {
         Optional<Tarea> tarea = this.tareaRepository.findById(id);
         // Lanza excepcion -> return respuesta
         tarea.orElseThrow(() -> new EntityNotFoundException(id, Tarea.class));
+        return ResponseEntity.ok(tarea.get());
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Tarea> deleteById(@PathVariable UUID id) {
+        // Almacenamamos en "tarea" la tarea buscada por su id
+        Optional<Tarea> tarea = this.tareaRepository.findById(id);
+        // Lanza excepcion -> return respuesta
+        tarea.orElseThrow(() -> new EntityNotFoundException(id, Tarea.class));
+        // Borramos tarea de la bbdd -> se busca por el objeto
+        this.tareaRepository.delete(tarea.get());
+        // Devuelve json de la tarea eliminada
         return ResponseEntity.ok(tarea.get());
     }
 
