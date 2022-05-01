@@ -11,4 +11,4 @@
 - [ ] ***Resolver todas las tareas del listado según sus pasos***
 - [ ] Subir la rama `epic/[epic_id]`
 - [ ] Hacer un pull request de `epic/[epic_id]` contra `dev`
-- [ ] En el mensaje del merge, añadir `closes #[epic_id]`
+- [ ] En el mensaje del merge, añadir `Closes #[epic_id]`

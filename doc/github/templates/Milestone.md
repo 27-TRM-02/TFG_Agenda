@@ -8,7 +8,7 @@
 
 - [ ] ***Resolver todas las tareas del listado según sus pasos***
 - [ ] Hacer un pull request de `dev` contra `master`
-- [ ] En el mensaje del merge, añadir `closes #[milestone_id]`
+- [ ] En el mensaje del merge, añadir `Closes #[milestone_id]`
 
 ## Bugs
 
