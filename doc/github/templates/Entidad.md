@@ -1,13 +1,12 @@
-## Definición del Campo
+## Campos
 
-- Tipo: `[FieldType]`
-- Obligatorio:`[true/false]`
-- Nombre `[fieldName]`
-- Default: `[default_value]`
+- [] #[issue_id]
+- [] #[issue_id]
+- [] #[issue_id]
 
 ## Lógica
 
-[Qué tiene que hacer el campo]
+[Qué tiene que hacer la entidad]
 
 ## Pasos
 
