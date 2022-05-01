@@ -11,6 +11,7 @@ spring:
       ddl-auto: update
     generate-ddl: true
     show-sql: true
+
   session:
     jdbc:
       initialize-schema: always
