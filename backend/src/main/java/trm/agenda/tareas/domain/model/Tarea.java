@@ -24,6 +24,7 @@ public class Tarea {
     @Size(max = 60)
     private String title;
 
+    // Constructor de la clase vacio para que no salte excepcion
     public Tarea() {
     }
 
