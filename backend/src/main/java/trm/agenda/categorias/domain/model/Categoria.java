@@ -1,10 +1,13 @@
 package trm.agenda.categorias.domain.model;
 
 import java.util.UUID;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -26,12 +29,17 @@ public class Categoria {
     @ColumnDefault("''")
     private String description;
 
+    @Column(nullable = false)
+    @Size(min = 4, max = 1024)
+    @Pattern(regexp = "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$")
+    private String color;
+
     // Constructor de la clase vacio para que no salte excepcion
     public Categoria() {
     }
 
-    public Categoria(String title, String description) {
-        this.setTitle(title).setDescription(description);
+    public Categoria(String title, String description, String color) {
+        this.setTitle(title).setDescription(description).setColor(color);
     }
 
     public String getTitle() {
@@ -52,4 +60,12 @@ public class Categoria {
         return this;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public Categoria setColor(String color) {
+        this.color = color;
+        return this;
+    }
 }
