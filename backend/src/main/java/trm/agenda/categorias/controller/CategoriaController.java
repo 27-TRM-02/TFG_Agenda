@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,6 +57,18 @@ public class CategoriaController {
         Optional<Categoria> categoria = this.categoriaRepository.findById(id);
         categoria.orElseThrow(() -> new EntityNotFoundException(id, Categoria.class));
         this.categoriaRepository.save(category.setId(categoria.get().getId()));
+        return ResponseEntity.ok(categoria.get());
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Categoria> deleteById(@PathVariable UUID id) {
+        // Almacenamamos en "categoria" la categoria buscada por su id
+        Optional<Categoria> categoria = this.categoriaRepository.findById(id);
+        // Lanza excepcion -> return respuesta
+        categoria.orElseThrow(() -> new EntityNotFoundException(id, Categoria.class));
+        // Borramos categoria de la bbdd -> se busca por el objeto
+        this.categoriaRepository.delete(categoria.get());
+        // Devuelve json de la tarea eliminada
         return ResponseEntity.ok(categoria.get());
     }
 
