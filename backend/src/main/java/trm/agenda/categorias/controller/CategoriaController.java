@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,6 +47,15 @@ public class CategoriaController {
         Optional<Categoria> categoria = this.categoriaRepository.findById(id);
         // Lanza excepcion -> return respuesta
         categoria.orElseThrow(() -> new EntityNotFoundException(id, Categoria.class));
+        return ResponseEntity.ok(categoria.get());
+    }
+
+    // Edita Categoria
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<Categoria> updateTask(@PathVariable UUID id, @Valid @RequestBody Categoria category) {
+        Optional<Categoria> categoria = this.categoriaRepository.findById(id);
+        categoria.orElseThrow(() -> new EntityNotFoundException(id, Categoria.class));
+        this.categoriaRepository.save(category.setId(categoria.get().getId()));
         return ResponseEntity.ok(categoria.get());
     }
 

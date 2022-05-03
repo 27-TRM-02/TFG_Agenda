@@ -49,6 +49,7 @@ public class TareaController {
         return ResponseEntity.ok(task);
     }
 
+    // Busca por id
     @GetMapping("/{id}")
     public ResponseEntity<Tarea> findById(@PathVariable UUID id) {
         // Almacenamamos en "tarea" la tarea buscada por su id

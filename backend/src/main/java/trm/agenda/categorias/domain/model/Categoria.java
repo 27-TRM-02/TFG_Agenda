@@ -42,6 +42,15 @@ public class Categoria {
         this.setTitle(title).setDescription(description).setColor(color);
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public Categoria setId(UUID id) {
+        this.id = id;
+        return this;
+    }
+
     public String getTitle() {
         return title;
     }
