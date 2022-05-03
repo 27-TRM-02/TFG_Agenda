@@ -30,7 +30,7 @@ public class Categoria {
     private String description;
 
     @Column(nullable = false)
-    @Size(min = 4, max = 1024)
+    @Size(min = 4, max = 7)
     @Pattern(regexp = "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$")
     private String color;
 
@@ -40,6 +40,15 @@ public class Categoria {
 
     public Categoria(String title, String description, String color) {
         this.setTitle(title).setDescription(description).setColor(color);
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Categoria setId(UUID id) {
+        this.id = id;
+        return this;
     }
 
     public String getTitle() {

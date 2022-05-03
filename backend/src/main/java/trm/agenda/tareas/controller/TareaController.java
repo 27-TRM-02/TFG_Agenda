@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +28,12 @@ public class TareaController {
     @Autowired
     private TareaRepository tareaRepository;
 
-    @Autowired
-    private EntityManager entityManager;
-
     @GetMapping("")
     private ResponseEntity<List<Tarea>> list() {
         return ResponseEntity.ok(this.tareaRepository.findAll());
     }
 
+    // Crea nueva tarea
     @PostMapping("/new")
     public ResponseEntity<Tarea> newTask(@Valid @RequestBody Tarea task) {
         this.tareaRepository.save(task);
@@ -53,6 +49,7 @@ public class TareaController {
         return ResponseEntity.ok(task);
     }
 
+    // Busca por id
     @GetMapping("/{id}")
     public ResponseEntity<Tarea> findById(@PathVariable UUID id) {
         // Almacenamamos en "tarea" la tarea buscada por su id
