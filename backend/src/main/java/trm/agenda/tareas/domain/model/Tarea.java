@@ -2,12 +2,14 @@ package trm.agenda.tareas.domain.model;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -31,13 +33,22 @@ public class Tarea {
     @ColumnDefault("''")
     private String description;
 
+    // Declaracion de campo date
+    @NotNull
+    @DateTimeFormat(pattern = "MM/DD/YYYY")
+    private Date date;
+    // Declaracion de campo Highlighted
+    @NotNull
+    @ColumnDefault("false")
+    private Boolean highlighted;
+
     // Constructor de la clase vacio para que no salte excepcion
     public Tarea() {
     }
 
     // Constructor de los campos de la clase
-    public Tarea(String title, String description) {
-        this.setTitle(title).setDescription(description);
+    public Tarea(String title, String description, Date date, Boolean highlighted) {
+        this.setTitle(title).setDescription(description).setDate(date).setHighlighted(highlighted);
     }
 
     // Constructores de campo id
@@ -67,6 +78,26 @@ public class Tarea {
 
     public Tarea setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    // Constructores de campo date
+    public Date getDate() {
+        return date;
+    }
+
+    public Tarea setDate(Date date) {
+        this.date = date;
+        return this;
+    }
+
+    // Constructores de campo Highlighted
+    public Boolean getHighlighted() {
+        return highlighted;
+    }
+
+    public Tarea setHighlighted(Boolean highlighted) {
+        this.highlighted = highlighted;
         return this;
     }
 
