@@ -38,6 +38,7 @@ public class Categoria {
     public Categoria() {
     }
 
+    // Constructor de los campos de la clase
     public Categoria(String title, String description, String color) {
         this.setTitle(title).setDescription(description).setColor(color);
     }
