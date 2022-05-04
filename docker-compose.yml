@@ -1,0 +1,52 @@
+version: "3.6"
+services:
+  db:
+    image: mariadb:10.7.3
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_HOST: ${DB_HOST}
+      MYSQL_PORT: ${DB_PORT}
+  spring-backend:
+    user: ${USER}:${USER}
+    build:
+      context: ./backend
+      args:
+        uid: ${UID}
+        gid: ${GID}
+        username: ${USERNAME}
+    ports:
+      - 8080:8080
+      - 8000:8000
+    volumes:
+      - .:/home/${USERNAME}/app:rw
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION: ${JWT_EXPIRATION}
+    depends_on:
+      - db
+    # TODO: See how can this be avoided
+    tty: true
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.1.3
+    ports:
+      - 81:80
+    environment:
+      PMA_HOST: ${DB_HOST}
+      PMA_USER: ${DB_USER}
+      PMA_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - spring-backend
+volumes:
+  mariadb-data: null
