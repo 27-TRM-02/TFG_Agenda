@@ -2,14 +2,17 @@ package trm.agenda.tareas.domain.model;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -28,15 +31,17 @@ public class Tarea {
     @Size(max = 60)
     private String title;
 
+    // Declaracion de campo date
+    @FutureOrPresent
+    @NotNull
+    @JsonFormat(shape = Shape.STRING)
+    private LocalDateTime date;
+
     // Declaracion de campo description
     @Size(max = 1024)
     @ColumnDefault("''")
     private String description;
 
-    // Declaracion de campo date
-    @NotNull
-    @DateTimeFormat(pattern = "MM/DD/YYYY")
-    private Date date;
     // Declaracion de campo Highlighted
     @NotNull
     @ColumnDefault("false")
@@ -47,7 +52,7 @@ public class Tarea {
     }
 
     // Constructor de los campos de la clase
-    public Tarea(String title, String description, Date date, Boolean highlighted) {
+    public Tarea(String title, String description, LocalDateTime date, Boolean highlighted) {
         this.setTitle(title).setDescription(description).setDate(date).setHighlighted(highlighted);
     }
 
@@ -82,11 +87,11 @@ public class Tarea {
     }
 
     // Constructores de campo date
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public Tarea setDate(Date date) {
+    public Tarea setDate(LocalDateTime date) {
         this.date = date;
         return this;
     }
