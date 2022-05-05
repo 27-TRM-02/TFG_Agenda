@@ -5,9 +5,14 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -26,6 +31,12 @@ public class Tarea {
     @Size(max = 60)
     private String title;
 
+    // Declaracion de campo date
+    @FutureOrPresent
+    @NotNull
+    @JsonFormat(shape = Shape.STRING)
+    private LocalDateTime date;
+
     // Declaracion de campo description
     @Size(max = 1024)
     @ColumnDefault("''")
@@ -36,8 +47,8 @@ public class Tarea {
     }
 
     // Constructor de los campos de la clase
-    public Tarea(String title, String description) {
-        this.setTitle(title).setDescription(description);
+    public Tarea(String title, String description, LocalDateTime date) {
+        this.setTitle(title).setDescription(description).setDate(date);
     }
 
     // Constructores de campo id
@@ -57,6 +68,16 @@ public class Tarea {
 
     public Tarea setTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    // Constructores de campo date
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public Tarea setDate(LocalDateTime date) {
+        this.date = date;
         return this;
     }
 
