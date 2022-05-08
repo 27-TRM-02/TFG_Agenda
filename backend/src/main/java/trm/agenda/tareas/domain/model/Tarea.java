@@ -3,8 +3,11 @@ package trm.agenda.tareas.domain.model;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 
+import trm.agenda.categorias.domain.model.Categoria;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -46,6 +50,10 @@ public class Tarea {
     @NotNull
     @ColumnDefault("false")
     private Boolean highlighted;
+
+    // Declaracion de campo categorias
+    @OneToMany()
+    private List<Categoria> categories;
 
     // Constructor de la clase vacio para que no salte excepcion
     public Tarea() {
@@ -103,6 +111,16 @@ public class Tarea {
 
     public Tarea setHighlighted(Boolean highlighted) {
         this.highlighted = highlighted;
+        return this;
+    }
+
+    // Constructores de campo categories
+    public List<Categoria> getCategories() {
+        return categories;
+    }
+
+    public Tarea setCategories(List<Categoria> categories) {
+        this.categories = categories;
         return this;
     }
 
