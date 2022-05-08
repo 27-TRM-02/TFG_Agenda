@@ -1,10 +1,12 @@
 package trm.agenda.tareas.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -63,6 +65,20 @@ public class TareaController {
     @GetMapping("/highlighted")
     public ResponseEntity<List<Tarea>> findHighlighted() {
         return ResponseEntity.ok(this.tareaRepository.findAllByHighlightedIsTrue());
+    }
+
+    // Busca tareas que esten cerca de la fecha actual
+    @GetMapping("/upcoming")
+    public ResponseEntity<List<Tarea>> findUpcomingDateDefault() {
+        LocalDateTime timeWithAddedDays = LocalDateTime.now().plusDays(3);
+        return ResponseEntity.ok(this.tareaRepository.findAllByDateLessThanEqual(timeWithAddedDays));
+    }
+
+    // Busca tareas que esten cerca de la fecha actual
+    @GetMapping("/upcoming/{days}")
+    public ResponseEntity<List<Tarea>> findUpcomingDate(@PathVariable Long days) {
+        LocalDateTime timeWithAddedDays = LocalDateTime.now().plusDays(days);
+        return ResponseEntity.ok(this.tareaRepository.findAllByDateLessThanEqual(timeWithAddedDays));
     }
 
     @DeleteMapping("/delete/{id}")
