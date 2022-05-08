@@ -59,6 +59,12 @@ public class TareaController {
         return ResponseEntity.ok(tarea.get());
     }
 
+    // Busca tareas destacadas
+    @GetMapping("/highlighted")
+    public ResponseEntity<List<Tarea>> findHighlighted() {
+        return ResponseEntity.ok(this.tareaRepository.findAllByHighlightedIsTrue());
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Tarea> deleteById(@PathVariable UUID id) {
         // Almacenamamos en "tarea" la tarea buscada por su id
