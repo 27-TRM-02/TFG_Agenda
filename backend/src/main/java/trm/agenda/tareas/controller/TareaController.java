@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +29,7 @@ public class TareaController {
     @Autowired
     private TareaRepository tareaRepository;
 
+    // Lista todas las tareas
     @GetMapping("")
     private ResponseEntity<List<Tarea>> list() {
         return ResponseEntity.ok(this.tareaRepository.findAll());
@@ -81,6 +81,7 @@ public class TareaController {
         return ResponseEntity.ok(this.tareaRepository.findAllByDateLessThanEqual(timeWithAddedDays));
     }
 
+    // Borra tarea por su id
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Tarea> deleteById(@PathVariable UUID id) {
         // Almacenamamos en "tarea" la tarea buscada por su id
@@ -91,6 +92,12 @@ public class TareaController {
         this.tareaRepository.delete(tarea.get());
         // Devuelve json de la tarea eliminada
         return ResponseEntity.ok(tarea.get());
+    }
+
+    // Busca tareas por categoria (id)
+    @GetMapping("/search/category/{id}")
+    public ResponseEntity<List<Tarea>> findByCategory(@PathVariable UUID id) {
+        return ResponseEntity.ok(this.tareaRepository.findAllByCategoriesId(id));
     }
 
 }
