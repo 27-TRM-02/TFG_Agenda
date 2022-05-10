@@ -1,5 +1,6 @@
 package trm.agenda.tareas.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,6 +29,7 @@ public class TareaController {
     @Autowired
     private TareaRepository tareaRepository;
 
+    // Lista todas las tareas
     @GetMapping("")
     private ResponseEntity<List<Tarea>> list() {
         return ResponseEntity.ok(this.tareaRepository.findAll());
@@ -59,6 +61,27 @@ public class TareaController {
         return ResponseEntity.ok(tarea.get());
     }
 
+    // Busca tareas destacadas
+    @GetMapping("/highlighted")
+    public ResponseEntity<List<Tarea>> findHighlighted() {
+        return ResponseEntity.ok(this.tareaRepository.findAllByHighlightedIsTrue());
+    }
+
+    // Busca tareas que esten cerca de la fecha actual
+    @GetMapping("/upcoming")
+    public ResponseEntity<List<Tarea>> findUpcomingDateDefault() {
+        LocalDateTime timeWithAddedDays = LocalDateTime.now().plusDays(3);
+        return ResponseEntity.ok(this.tareaRepository.findAllByDateLessThanEqual(timeWithAddedDays));
+    }
+
+    // Busca tareas que esten cerca de la fecha actual
+    @GetMapping("/upcoming/{days}")
+    public ResponseEntity<List<Tarea>> findUpcomingDate(@PathVariable Long days) {
+        LocalDateTime timeWithAddedDays = LocalDateTime.now().plusDays(days);
+        return ResponseEntity.ok(this.tareaRepository.findAllByDateLessThanEqual(timeWithAddedDays));
+    }
+
+    // Borra tarea por su id
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Tarea> deleteById(@PathVariable UUID id) {
         // Almacenamamos en "tarea" la tarea buscada por su id
@@ -69,6 +92,12 @@ public class TareaController {
         this.tareaRepository.delete(tarea.get());
         // Devuelve json de la tarea eliminada
         return ResponseEntity.ok(tarea.get());
+    }
+
+    // Busca tareas por categoria (id)
+    @GetMapping("/search/category/{id}")
+    public ResponseEntity<List<Tarea>> findByCategory(@PathVariable UUID id) {
+        return ResponseEntity.ok(this.tareaRepository.findAllByCategoriesId(id));
     }
 
 }
