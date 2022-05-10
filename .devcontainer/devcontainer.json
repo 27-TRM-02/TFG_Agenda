@@ -1,0 +1,11 @@
+{
+    "dockerComposeFile": "../docker-compose.yml",
+    "workspaceFolder": "/home/trm/app",
+    "service": "spring-backend",
+    "extensions": [
+      "vscjava.vscode-java-pack",
+      "vscjava.vscode-spring-initializr",
+      "vscjava.vscode-spring-boot-dashboard",
+      "redhat.java"
+    ]
+  }

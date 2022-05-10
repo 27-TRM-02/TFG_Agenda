@@ -1,0 +1,15 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-AgendaApplication<agenda>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "mainClass": "trm.agenda.AgendaApplication",
+      "projectName": "agenda",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
