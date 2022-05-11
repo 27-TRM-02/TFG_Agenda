@@ -28,13 +28,19 @@ public class Usuario {
     @Pattern(regexp = "^([a-zA-Z0-9_]){8,20}$")
     private String usurname;
 
+    // Declaracion de campo usurname
+    @NotNull
+    @Column(nullable = false, length = 20)
+    @Size(min = 8, max = 20)
+    private String password;
+
     // Constructor de la clase vacio para que no salte excepcion
     public Usuario() {
 
     }
 
-    public Usuario(String usurname) {
-        this.setUsurname(usurname);
+    public Usuario(String usurname, String password) {
+        this.setUsurname(usurname).setPassword(password);
 
     }
 
@@ -55,6 +61,16 @@ public class Usuario {
 
     public Usuario setUsurname(String usurname) {
         this.usurname = usurname;
+        return this;
+    }
+
+    // Constructores de campo password
+    public String getPassword() {
+        return password;
+    }
+
+    public Usuario setPassword(String password) {
+        this.password = password;
         return this;
     }
 
