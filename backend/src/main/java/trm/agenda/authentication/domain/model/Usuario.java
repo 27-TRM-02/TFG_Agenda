@@ -34,13 +34,21 @@ public class Usuario {
     @Size(min = 8, max = 20)
     private String password;
 
+    // Declaracion de campo email
+    // TODO: Añadir expresión regular formato mail
+
+    @NotNull
+    @Column(nullable = false, length = 40)
+    @Size(min = 10, max = 40)
+    private String email;
+
     // Constructor de la clase vacio para que no salte excepcion
     public Usuario() {
 
     }
 
-    public Usuario(String usurname, String password) {
-        this.setUsurname(usurname).setPassword(password);
+    public Usuario(String usurname, String password, String email) {
+        this.setUsurname(usurname).setPassword(password).setEmail(email);
 
     }
 
@@ -71,6 +79,16 @@ public class Usuario {
 
     public Usuario setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    // Constructores de campo email
+    public String getEmail() {
+        return email;
+    }
+
+    public Usuario setEmail(String email) {
+        this.email = email;
         return this;
     }
 
