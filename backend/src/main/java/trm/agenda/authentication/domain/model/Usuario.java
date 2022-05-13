@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.Type;
 
 @Entity
@@ -26,12 +28,13 @@ public class Usuario {
     @Column(nullable = false, length = 20)
     @Size(min = 8, max = 20)
     @Pattern(regexp = "^([a-zA-Z0-9_]){8,20}$")
-    private String usurname;
+    private String username;
 
     // Declaracion de campo usurname
     @NotNull
     @Column(nullable = false, length = 20)
     @Size(min = 8, max = 20)
+    @JsonIgnore
     private String password;
 
     // Declaracion de campo email
@@ -48,7 +51,7 @@ public class Usuario {
     }
 
     public Usuario(String usurname, String password, String email) {
-        this.setUsurname(usurname).setPassword(password).setEmail(email);
+        this.setUsername(usurname).setPassword(password).setEmail(email);
 
     }
 
@@ -63,12 +66,12 @@ public class Usuario {
     }
 
     // Constructores de campo usurname
-    public String getUsurname() {
-        return usurname;
+    public String getUsername() {
+        return username;
     }
 
-    public Usuario setUsurname(String usurname) {
-        this.usurname = usurname;
+    public Usuario setUsername(String username) {
+        this.username = username;
         return this;
     }
 
