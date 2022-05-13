@@ -27,14 +27,12 @@ public class Usuario {
     @NotNull
     @Column(nullable = false, length = 20)
     @Size(min = 8, max = 20)
-    @Pattern(regexp = "^([a-zA-Z0-9_]){8,20}$")
+    @Pattern(regexp = "^([a-zA-Z0-9_-]){8,20}$")
     private String username;
 
     // Declaracion de campo usurname
     @NotNull
-    @Column(nullable = false, length = 20)
-    @Size(min = 8, max = 20)
-    @JsonIgnore
+    @Column(nullable = false)
     private String password;
 
     // Declaracion de campo email
@@ -50,9 +48,8 @@ public class Usuario {
 
     }
 
-    public Usuario(String usurname, String password, String email) {
-        this.setUsername(usurname).setPassword(password).setEmail(email);
-
+    public Usuario(String username, String password, String email) {
+        this.setUsername(username).setPassword(password).setEmail(email);
     }
 
     // Constructores de campo id

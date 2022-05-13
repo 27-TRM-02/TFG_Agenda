@@ -7,7 +7,7 @@ import trm.agenda.categorias.domain.model.Categoria;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -52,7 +52,7 @@ public class Tarea {
     private Boolean highlighted;
 
     // Declaracion de campo categorias
-    @OneToMany()
+    @ManyToMany()
     private List<Categoria> categories;
 
     // Constructor de la clase vacio para que no salte excepcion
