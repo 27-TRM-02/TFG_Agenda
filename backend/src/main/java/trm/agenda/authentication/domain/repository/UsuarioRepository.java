@@ -1,5 +1,13 @@
 package trm.agenda.authentication.domain.repository;
 
-public class UsuarioRepository {
+import java.util.Optional;
+import java.util.UUID;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import trm.agenda.authentication.domain.model.Usuario;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
+
+    public Optional<Usuario> findByUsername(String username);
 }
