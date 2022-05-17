@@ -4,14 +4,21 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
+
+import trm.agenda.authentication.domain.model.Usuario;
 
 @Entity
 public class Categoria {
@@ -33,6 +40,13 @@ public class Categoria {
     @Size(min = 4, max = 7)
     @Pattern(regexp = "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$")
     private String color;
+
+    // Declaración de campo propietario (owner) -> Usuario.id
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(referencedColumnName = "id", updatable = false, name = "owner_id")
+    @Type(type = "uuid-char")
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    private Usuario owner;
 
     // Constructor de la clase vacio para que no salte excepcion
     public Categoria() {
@@ -76,6 +90,16 @@ public class Categoria {
 
     public Categoria setColor(String color) {
         this.color = color;
+        return this;
+    }
+
+    // Constructores de campo owner
+    public Usuario getOwner() {
+        return owner;
+    }
+
+    public Categoria setOwner(Usuario owner) {
+        this.owner = owner;
         return this;
     }
 }
