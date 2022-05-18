@@ -3,6 +3,13 @@ logging:
     org:
       springframework:
         web: DEBUG
+server:
+  error:
+    whitelabel:
+      enabled: false
+    include-stacktrace: never
+    include-exception: false
+    include-message: always
 spring:
   application:
     name: Test API

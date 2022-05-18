@@ -33,6 +33,7 @@ public class Usuario {
     // Declaracion de campo usurname
     @NotNull
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     // Declaracion de campo email
