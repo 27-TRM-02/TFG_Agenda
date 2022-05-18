@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class EntityNotFoundException extends IllegalArgumentException {
 
     public EntityNotFoundException(UUID id, Class<?> entityClass) {
-        super(String.format("Entity '%s' with id '%s' does not exist", entityClass.getName().toLowerCase(), id));
+        super(String.format("Entity '%s' with id '%s' does not exist", entityClass.getSimpleName().toLowerCase(), id));
     }
 
 }

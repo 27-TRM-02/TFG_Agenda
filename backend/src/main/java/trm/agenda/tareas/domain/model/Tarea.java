@@ -3,16 +3,20 @@ package trm.agenda.tareas.domain.model;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 
+import trm.agenda.authentication.domain.model.Usuario;
 import trm.agenda.categorias.domain.model.Categoria;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 import java.time.LocalDateTime;
@@ -20,6 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 
 @Entity
 public class Tarea {
@@ -52,8 +57,15 @@ public class Tarea {
     private Boolean highlighted;
 
     // Declaracion de campo categorias
-    @OneToMany()
+    @ManyToMany()
     private List<Categoria> categories;
+
+    // Declaración de campo propietario (owner) -> Usuario.id
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(referencedColumnName = "id", updatable = false, name = "owner_id")
+    @Type(type = "uuid-char")
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    private Usuario owner;
 
     // Constructor de la clase vacio para que no salte excepcion
     public Tarea() {
@@ -121,6 +133,16 @@ public class Tarea {
 
     public Tarea setCategories(List<Categoria> categories) {
         this.categories = categories;
+        return this;
+    }
+
+    // Constructores de campo owner
+    public Usuario getOwner() {
+        return owner;
+    }
+
+    public Tarea setOwner(Usuario owner) {
+        this.owner = owner;
         return this;
     }
 
