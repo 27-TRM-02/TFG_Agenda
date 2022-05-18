@@ -2,10 +2,14 @@ package trm.agenda.tareas.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
 import javax.validation.Valid;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +39,9 @@ public class TareaController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     // Lista todas las tareas
     @GetMapping("")
     private ResponseEntity<List<Tarea>> list() {
@@ -55,17 +62,24 @@ public class TareaController {
     // Edita tarea
     @PatchMapping("/edit/{id}")
     public ResponseEntity<Tarea> updateTask(@PathVariable UUID id, @Valid @RequestBody Tarea task) {
-        Optional<Tarea> tarea = this.tareaRepository.findById(id);
+        // UUID del usuario activo
+        UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
+        // Almacenamamos en "tarea" la tarea buscada por su id y su owner
+        Optional<Tarea> tarea = this.tareaRepository.findByIdAndOwnerId(id, ownerId);
+        // Lanza excepcion -> return respuesta
         tarea.orElseThrow(() -> new EntityNotFoundException(id, Tarea.class));
-        this.tareaRepository.save(task.setId(tarea.get().getId()));
+
+        this.tareaRepository.save(this.actualizarTarea(tarea.get(), task));
         return ResponseEntity.ok(task);
     }
 
     // Busca por id
     @GetMapping("/{id}")
     public ResponseEntity<Tarea> findById(@PathVariable UUID id) {
+        // UUID del usuario activo
+        UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
         // Almacenamamos en "tarea" la tarea buscada por su id
-        Optional<Tarea> tarea = this.tareaRepository.findById(id);
+        Optional<Tarea> tarea = this.tareaRepository.findByIdAndOwnerId(id, ownerId);
         // Lanza excepcion -> return respuesta
         tarea.orElseThrow(() -> new EntityNotFoundException(id, Tarea.class));
         return ResponseEntity.ok(tarea.get());
@@ -74,6 +88,7 @@ public class TareaController {
     // Busca tareas destacadas
     @GetMapping("/highlighted")
     public ResponseEntity<List<Tarea>> findHighlighted() {
+        // UUID del usuario activo
         UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
         return ResponseEntity.ok(this.tareaRepository.findAllByHighlightedIsTrueAndOwnerId(ownerId));
     }
@@ -90,6 +105,7 @@ public class TareaController {
     @GetMapping("/upcoming/{days}")
     public ResponseEntity<List<Tarea>> findUpcomingDate(@PathVariable Long days) {
         LocalDateTime timeWithAddedDays = LocalDateTime.now().plusDays(days);
+        // UUID del usuario activo
         UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
         return ResponseEntity.ok(this.tareaRepository.findAllByDateLessThanEqualAndOwnerId(timeWithAddedDays, ownerId));
     }
@@ -97,8 +113,10 @@ public class TareaController {
     // Borra tarea por su id
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Tarea> deleteById(@PathVariable UUID id) {
+        // UUID del usuario activo
+        UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
         // Almacenamamos en "tarea" la tarea buscada por su id
-        Optional<Tarea> tarea = this.tareaRepository.findById(id);
+        Optional<Tarea> tarea = this.tareaRepository.findByIdAndOwnerId(id, ownerId);
         // Lanza excepcion -> return respuesta
         tarea.orElseThrow(() -> new EntityNotFoundException(id, Tarea.class));
         // Borramos tarea de la bbdd -> se busca por el objeto
@@ -110,8 +128,30 @@ public class TareaController {
     // Busca tareas por categoria (id)
     @GetMapping("/search/category/{id}")
     public ResponseEntity<List<Tarea>> findByCategory(@PathVariable UUID id) {
+        // UUID del usuario activo
         UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
         return ResponseEntity.ok(this.tareaRepository.findAllByCategoriesIdAndOwnerId(id, ownerId));
+    }
+
+    // Actualiza Tarea
+    private Tarea actualizarTarea(Tarea originalT, Tarea nuevaT) {
+
+        @SuppressWarnings({ "unchecked" })
+        Map<String, Object> originalProperties = this.objectMapper.convertValue(originalT, Map.class);
+
+        @SuppressWarnings({ "unchecked" })
+        Map<String, Object> partialProperties = this.objectMapper.convertValue(nuevaT, Map.class);
+
+        // Remueve id que se le pasa
+        partialProperties.remove("id");
+        partialProperties.forEach((key, value) -> {
+            if (Objects.nonNull(value)) {
+                originalProperties.put(key, value);
+            }
+        });
+
+        return this.objectMapper.convertValue(originalProperties, originalT.getClass());
+
     }
 
 }

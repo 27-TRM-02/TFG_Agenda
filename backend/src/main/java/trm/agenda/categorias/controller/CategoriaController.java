@@ -1,10 +1,14 @@
 package trm.agenda.categorias.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
 import javax.validation.Valid;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +38,9 @@ public class CategoriaController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     // Devuelve listado con todas las categorias
     @GetMapping("")
     private ResponseEntity<List<Categoria>> list() {
@@ -54,8 +61,10 @@ public class CategoriaController {
     // Busca por id
     @GetMapping("/{id}")
     public ResponseEntity<Categoria> findById(@PathVariable UUID id) {
-        // Almacenamamos en "categoria" la categoria buscada por su id
-        Optional<Categoria> categoria = this.categoriaRepository.findById(id);
+        // UUID del usuario activo
+        UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
+        // Almacenamamos en "categoria" la categoria buscada por su id y su owner
+        Optional<Categoria> categoria = this.categoriaRepository.findByIdAndOwnerId(id, ownerId);
         // Lanza excepcion -> return respuesta
         categoria.orElseThrow(() -> new EntityNotFoundException(id, Categoria.class));
         return ResponseEntity.ok(categoria.get());
@@ -64,22 +73,50 @@ public class CategoriaController {
     // Edita Categoria
     @PatchMapping("/edit/{id}")
     public ResponseEntity<Categoria> updateTask(@PathVariable UUID id, @Valid @RequestBody Categoria category) {
-        Optional<Categoria> categoria = this.categoriaRepository.findById(id);
+        // UUID del usuario activo
+        UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
+        // Almacenamamos en "categoria" la categoria buscada por su id y su owner
+        Optional<Categoria> categoria = this.categoriaRepository.findByIdAndOwnerId(id, ownerId);
+        // Lanza excepcion -> return respuesta
         categoria.orElseThrow(() -> new EntityNotFoundException(id, Categoria.class));
-        this.categoriaRepository.save(category.setId(categoria.get().getId()));
-        return ResponseEntity.ok(categoria.get());
+
+        this.categoriaRepository.save(this.actualizarCategoria(categoria.get(), category));
+        return ResponseEntity.ok(category);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Categoria> deleteById(@PathVariable UUID id) {
+        // UUID del usuario activo
+        UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
         // Almacenamamos en "categoria" la categoria buscada por su id
-        Optional<Categoria> categoria = this.categoriaRepository.findById(id);
+        Optional<Categoria> categoria = this.categoriaRepository.findByIdAndOwnerId(id, ownerId);
         // Lanza excepcion -> return respuesta
         categoria.orElseThrow(() -> new EntityNotFoundException(id, Categoria.class));
         // Borramos categoria de la bbdd -> se busca por el objeto
         this.categoriaRepository.delete(categoria.get());
         // Devuelve json de la tarea eliminada
         return ResponseEntity.ok(categoria.get());
+    }
+
+    // Actualiza Categoría
+    private Categoria actualizarCategoria(Categoria originalC, Categoria nuevaC) {
+
+        @SuppressWarnings({ "unchecked" })
+        Map<String, Object> originalProperties = this.objectMapper.convertValue(originalC, Map.class);
+
+        @SuppressWarnings({ "unchecked" })
+        Map<String, Object> partialProperties = this.objectMapper.convertValue(nuevaC, Map.class);
+
+        // Remueve id que se le pasa
+        partialProperties.remove("id");
+        partialProperties.forEach((key, value) -> {
+            if (Objects.nonNull(value)) {
+                originalProperties.put(key, value);
+            }
+        });
+
+        return this.objectMapper.convertValue(originalProperties, originalC.getClass());
+
     }
 
 }
