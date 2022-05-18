@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import trm.agenda.authentication.domain.model.Usuario;
+import trm.agenda.authentication.domain.repository.UsuarioRepository;
+import trm.agenda.authentication.utility.AuthenticationUtility;
 import trm.agenda.categorias.domain.model.Categoria;
 import trm.agenda.categorias.domain.repository.CategoriaRepository;
 import trm.agenda.response.exception.EntityNotFoundException;
@@ -28,6 +31,9 @@ public class CategoriaController {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     // Devuelve listado con todas las categorias
     @GetMapping("")
     private ResponseEntity<List<Categoria>> list() {
@@ -37,6 +43,10 @@ public class CategoriaController {
     // Crea nueva categoria
     @PostMapping("/new")
     public ResponseEntity<Categoria> newCategory(@Valid @RequestBody Categoria categoria) {
+        // Busca por el id al Usuario activo creando la categoría
+        Usuario currentUser = usuarioRepository.findById(AuthenticationUtility.getCurrentUser().getId()).get();
+        // Setea el owner
+        categoria.setOwner(currentUser);
         this.categoriaRepository.save(categoria);
         return ResponseEntity.ok(categoria);
     }

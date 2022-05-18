@@ -23,19 +23,23 @@ import trm.agenda.authentication.domain.model.Usuario;
 @Entity
 public class Categoria {
 
+    // Declaración de campo id (PK)
     @Id
     @Type(type = "uuid-char")
     @GeneratedValue
     private UUID id;
 
+    // Declaración de campo title
     @NotNull
     @Size(max = 60)
     private String title;
 
+    // Declaración de campo description
     @Size(max = 1024)
     @ColumnDefault("''")
     private String description;
 
+    // Declaración de campo color
     @Column(nullable = false)
     @Size(min = 4, max = 7)
     @Pattern(regexp = "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$")
@@ -57,6 +61,7 @@ public class Categoria {
         this.setTitle(title).setDescription(description).setColor(color);
     }
 
+    // Constructores de campo id
     public UUID getId() {
         return id;
     }
@@ -66,6 +71,7 @@ public class Categoria {
         return this;
     }
 
+    // Constructores de campo title
     public String getTitle() {
         return title;
     }
@@ -75,6 +81,7 @@ public class Categoria {
         return this;
     }
 
+    // Constructores de campo description
     public String getDescription() {
         return description;
     }
@@ -84,6 +91,7 @@ public class Categoria {
         return this;
     }
 
+    // Constructores de campo color
     public String getColor() {
         return color;
     }

@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import trm.agenda.authentication.domain.model.Usuario;
+import trm.agenda.authentication.domain.repository.UsuarioRepository;
+import trm.agenda.authentication.utility.AuthenticationUtility;
 import trm.agenda.response.exception.EntityNotFoundException;
 import trm.agenda.tareas.domain.model.Tarea;
 import trm.agenda.tareas.domain.repository.TareaRepository;
@@ -29,6 +32,9 @@ public class TareaController {
     @Autowired
     private TareaRepository tareaRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     // Lista todas las tareas
     @GetMapping("")
     private ResponseEntity<List<Tarea>> list() {
@@ -38,6 +44,10 @@ public class TareaController {
     // Crea nueva tarea
     @PostMapping("/new")
     public ResponseEntity<Tarea> newTask(@Valid @RequestBody Tarea task) {
+        // Busca por el id al Usuario activo creando la tarea
+        Usuario currentUser = usuarioRepository.findById(AuthenticationUtility.getCurrentUser().getId()).get();
+        // Setea el owner
+        task.setOwner(currentUser);
         this.tareaRepository.save(task);
         return ResponseEntity.ok(task);
     }
@@ -64,21 +74,24 @@ public class TareaController {
     // Busca tareas destacadas
     @GetMapping("/highlighted")
     public ResponseEntity<List<Tarea>> findHighlighted() {
-        return ResponseEntity.ok(this.tareaRepository.findAllByHighlightedIsTrue());
+        UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
+        return ResponseEntity.ok(this.tareaRepository.findAllByHighlightedIsTrueAndOwnerId(ownerId));
     }
 
     // Busca tareas que esten cerca de la fecha actual
     @GetMapping("/upcoming")
     public ResponseEntity<List<Tarea>> findUpcomingDateDefault() {
         LocalDateTime timeWithAddedDays = LocalDateTime.now().plusDays(3);
-        return ResponseEntity.ok(this.tareaRepository.findAllByDateLessThanEqual(timeWithAddedDays));
+        UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
+        return ResponseEntity.ok(this.tareaRepository.findAllByDateLessThanEqualAndOwnerId(timeWithAddedDays, ownerId));
     }
 
     // Busca tareas que esten cerca de la fecha actual
     @GetMapping("/upcoming/{days}")
     public ResponseEntity<List<Tarea>> findUpcomingDate(@PathVariable Long days) {
         LocalDateTime timeWithAddedDays = LocalDateTime.now().plusDays(days);
-        return ResponseEntity.ok(this.tareaRepository.findAllByDateLessThanEqual(timeWithAddedDays));
+        UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
+        return ResponseEntity.ok(this.tareaRepository.findAllByDateLessThanEqualAndOwnerId(timeWithAddedDays, ownerId));
     }
 
     // Borra tarea por su id
@@ -97,7 +110,8 @@ public class TareaController {
     // Busca tareas por categoria (id)
     @GetMapping("/search/category/{id}")
     public ResponseEntity<List<Tarea>> findByCategory(@PathVariable UUID id) {
-        return ResponseEntity.ok(this.tareaRepository.findAllByCategoriesId(id));
+        UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
+        return ResponseEntity.ok(this.tareaRepository.findAllByCategoriesIdAndOwnerId(id, ownerId));
     }
 
 }

@@ -11,12 +11,12 @@ import trm.agenda.tareas.domain.model.Tarea;
 public interface TareaRepository extends JpaRepository<Tarea, UUID> {
 
     // Función que devuelve lista con tareas destacadas
-    public List<Tarea> findAllByHighlightedIsTrue();
+    public List<Tarea> findAllByHighlightedIsTrueAndOwnerId(UUID ownerId);
 
     // Funcion que devuelve lista con tareas cerca de la fecha actual
-    public List<Tarea> findAllByDateLessThanEqual(LocalDateTime dateTime);
+    public List<Tarea> findAllByDateLessThanEqualAndOwnerId(LocalDateTime dateTime, UUID ownerId);
 
     // Funcion que devuelve lista con todas las tareas
-    public List<Tarea> findAllByCategoriesId(UUID id);
+    public List<Tarea> findAllByCategoriesIdAndOwnerId(UUID id, UUID ownerId);
 
 }
