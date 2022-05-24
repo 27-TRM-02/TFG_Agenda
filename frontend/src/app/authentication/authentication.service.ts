@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SignUp } from './dto/sign-up';
 import { User } from './dto/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class AuthenticationService {
 
   public login(username: String, password: String): void {
     this.httpClient
-      .post('http://localhost:8080/auth/login', {
+      .post(`${environment.apiUrl}/auth/login`, {
         username,
         password,
       })
@@ -32,7 +33,7 @@ export class AuthenticationService {
 
   public signUp(newUser: SignUp): Observable<User> {
     return this.httpClient.put<User>(
-      'http://localhost:8080/auth/signup',
+      `${environment.apiUrl}/auth/signup`,
       newUser
     );
   }
