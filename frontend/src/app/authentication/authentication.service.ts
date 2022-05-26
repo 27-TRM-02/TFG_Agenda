@@ -5,13 +5,20 @@ import { Observable } from 'rxjs';
 import { SignUp } from './dto/sign-up';
 import { User } from './dto/user';
 import { environment } from 'src/environments/environment';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private jwtService: JwtHelperService
+  ) {}
 
+  // Método login: si username y password son válidos, se redirige a home
+  // Si los credenciales no son válidos, se le vuelve a redirigir al login
   public login(username: String, password: String): void {
     this.httpClient
       .post(`${environment.apiUrl}/auth/login`, {
@@ -39,8 +46,9 @@ export class AuthenticationService {
   }
 
   public userIsAuthenticated(): boolean {
-    // TODO: Comprobar si el token está expirado
-    return this.getToken() !== null;
+    // Comprobamos si el token está validado
+    const token: string | null = this.getToken();
+    return token !== null && !this.jwtService.isTokenExpired(token);
   }
 
   public getToken(): string | null {
