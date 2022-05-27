@@ -28,16 +28,47 @@ export class SignupComponent implements OnInit {
     private router: Router
   ) {
     this.signupForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      email: ['', Validators.required],
-      newUser: [],
+      username: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(20),
+        ]),
+      ],
+      password: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(20),
+        ]),
+      ],
+      email: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.email,
+          Validators.maxLength(40),
+        ]),
+      ],
     });
   }
 
   ngOnInit(): void {}
 
   signup() {
-    this.authenticationService.signUp(this.signupForm.value.newUser);
+    this.authenticationService
+      .signUp(this.signupForm.value as SignUp)
+      .subscribe({
+        next: (userOrError: User) => {
+          // No ha habido errores, redirecciona a login
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          // Ha habido algún error
+          console.log(error);
+        },
+      });
   }
 }
