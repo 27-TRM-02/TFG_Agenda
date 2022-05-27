@@ -1,0 +1,68 @@
+<div class="signup-form mat-elevation-z8" fxLayout="column">
+  <form [formGroup]="signupForm" (ngSubmit)="signup()">
+    <div class="form-label">
+      <span> Signup </span>
+    </div>
+    <div class="form-fields">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Username" formControlName="username" />
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-error *ngIf="signupForm.get('username')?.hasError('required')"
+          >The username cannot be empty</mat-error
+        >
+        <mat-error *ngIf="signupForm.get('username')?.hasError('minLength')"
+          >The username has to be longer than 8 characters</mat-error
+        >
+        <mat-error *ngIf="signupForm.get('username')?.hasError('maxLength')"
+          >The username has to be shorter than 20 characters</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          placeholder="Password"
+          formControlName="password"
+          type="password"
+        />
+        <mat-icon matSuffix>password</mat-icon>
+        <mat-error *ngIf="signupForm.get('password')?.hasError('required')"
+          >The password cannot be empty</mat-error
+        >
+        <mat-error *ngIf="signupForm.get('password')?.hasError('minLength')"
+          >The password has to be longer than 8 characters</mat-error
+        >
+        <mat-error *ngIf="signupForm.get('password')?.hasError('maxLength')"
+          >The password has to be shorter than 20 characters</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email" formControlName="email" />
+        <mat-icon matSuffix>alternate_email</mat-icon>
+        <mat-error *ngIf="signupForm.get('email')?.hasError('required')"
+          >The email cannot be empty</mat-error
+        >
+        <mat-error *ngIf="signupForm.get('email')?.hasError('email')"
+          >The email is not valid</mat-error
+        >
+        <mat-error *ngIf="signupForm.get('email')?.hasError('maxLength')"
+          >The email has to be shorter than 40 characters</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="form-actions">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="form-submit"
+        [disabled]="!signupForm.valid"
+      >
+        Log In
+      </button>
+    </div>
+  </form>
+</div>
