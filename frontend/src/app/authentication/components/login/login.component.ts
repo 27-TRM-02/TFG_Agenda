@@ -1,5 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  Form,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  NgForm,
+} from '@angular/forms';
 import { AuthenticationService } from '../../authentication.service';
 
 @Component({
@@ -12,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -20,7 +29,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Comprobamos si el token está validado
+    let tokenStatus: Boolean = this.authenticationService.userIsAuthenticated();
+    // Si es válido, redirige a Home
+    if (tokenStatus) {
+      this.router.navigate(['/']);
+    }
+  }
 
   login() {
     this.authenticationService.login(

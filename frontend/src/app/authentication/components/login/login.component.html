@@ -1,1 +1,37 @@
-<p>login works!</p>
+<div class="login-form mat-elevation-z8" fxLayout="column">
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="form-label">
+      <span> Login </span>
+    </div>
+    <div class="form-fields">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Username" formControlName="username" />
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
+          >The username cannot be empty</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Password" formControlName="password" />
+        <mat-icon matSuffix>password</mat-icon>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
+          >The password cannot be empty</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="form-actions">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="form-submit"
+        [disabled]="!loginForm.valid"
+      >
+        Log In
+      </button>
+    </div>
+  </form>
+</div>

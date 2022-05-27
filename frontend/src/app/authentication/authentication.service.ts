@@ -38,6 +38,7 @@ export class AuthenticationService {
       });
   }
 
+  // Registra un nuevo usuario
   public signUp(newUser: SignUp): Observable<User> {
     return this.httpClient.put<User>(
       `${environment.apiUrl}/auth/signup`,
@@ -45,12 +46,13 @@ export class AuthenticationService {
     );
   }
 
+  // Comprueba si el token del usuario está validado
   public userIsAuthenticated(): boolean {
-    // Comprobamos si el token está validado
     const token: string | null = this.getToken();
     return token !== null && !this.jwtService.isTokenExpired(token);
   }
 
+  // Retorna el token del usuario activo
   public getToken(): string | null {
     return localStorage.getItem('token');
   }
