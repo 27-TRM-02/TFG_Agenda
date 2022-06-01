@@ -1,0 +1,25 @@
+@import "./variables.scss";
+
+@mixin mobileDevice {
+  @media screen and (max-width: $breakpointMobile) {
+    @content;
+  }
+}
+
+@mixin tabletDevice {
+  @media screen and (max-width: $breakpointTablet) {
+    @content;
+  }
+}
+
+@mixin desktopDevice {
+  @media screen and (max-width: $breakpointDesktop) {
+    @content;
+  }
+}
+
+@mixin largeDevice {
+  @media screen and (max-width: $breakpointLarge) {
+    @content;
+  }
+}

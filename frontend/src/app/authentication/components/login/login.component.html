@@ -14,7 +14,12 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Password</mat-label>
-        <input matInput placeholder="Password" formControlName="password" />
+        <input
+          matInput
+          placeholder="Password"
+          formControlName="password"
+          type="password"
+        />
         <mat-icon matSuffix>password</mat-icon>
         <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
           >The password cannot be empty</mat-error
