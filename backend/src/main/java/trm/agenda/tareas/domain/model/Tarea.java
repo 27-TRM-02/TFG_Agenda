@@ -1,10 +1,14 @@
 package trm.agenda.tareas.domain.model;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 
+import trm.agenda.AgendaApplication;
 import trm.agenda.authentication.domain.model.Usuario;
 import trm.agenda.categorias.domain.model.Categoria;
+import trm.agenda.response.exception.EntityNotFoundException;
+import trm.agenda.tareas.domain.repository.TareaRepository;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,16 +21,20 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 
 @Entity
+@DynamicUpdate
 public class Tarea {
 
     // Declaracion de campo id (PK)
@@ -42,8 +50,9 @@ public class Tarea {
 
     // Declaracion de campo date
     @FutureOrPresent
-    @NotNull
+    @Column(nullable = false)
     @JsonFormat(shape = Shape.STRING)
+    @JsonInclude(Include.NON_NULL)
     private LocalDateTime date;
 
     // Declaracion de campo description
@@ -54,7 +63,7 @@ public class Tarea {
     // Declaracion de campo Highlighted
     @NotNull
     @ColumnDefault("false")
-    private Boolean highlighted;
+    private Boolean highlighted = false;
 
     // Declaracion de campo categorias
     @ManyToMany()
