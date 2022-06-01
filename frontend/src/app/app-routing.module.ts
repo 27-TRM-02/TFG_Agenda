@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './authentication/auth.guard';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { HomeComponent } from './components/home/home.component';
+import { TareasModule } from './tareas/tareas.module';
 
 // rutas base de la aplicación
 const routes: Routes = [
@@ -10,6 +11,10 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => AuthenticationModule,
+  },
+  {
+    path: 'task',
+    loadChildren: () => TareasModule,
   },
 ];
 

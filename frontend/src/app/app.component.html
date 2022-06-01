@@ -33,7 +33,7 @@
     </ng-container>
   </mat-sidenav>
   <mat-sidenav-content (click)="sidenav && sidenav.close()">
-    <div class="content">
+    <div class="content" fxLayout="column" fxLayoutAlign="center" fxFlexFill>
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

@@ -18,7 +18,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 
+import trm.agenda.AgendaApplication;
 import trm.agenda.authentication.domain.model.Usuario;
+import trm.agenda.categorias.domain.repository.CategoriaRepository;
+import trm.agenda.response.exception.EntityNotFoundException;
 
 @Entity
 public class Categoria {
@@ -54,6 +57,16 @@ public class Categoria {
 
     // Constructor de la clase vacio para que no salte excepcion
     public Categoria() {
+    }
+
+    public Categoria(String id) {
+        UUID uuid = UUID.fromString(id);
+        Categoria category = AgendaApplication.getApplicationContext().getBean(CategoriaRepository.class)
+                .findById(uuid)
+                .orElseThrow(() -> new EntityNotFoundException(uuid, this.getClass()));
+        this.setId(category.getId()).setOwner(category.getOwner()).setTitle(category.getTitle())
+                .setDescription(category.getDescription())
+                .setColor(category.getColor());
     }
 
     // Constructor de los campos de la clase

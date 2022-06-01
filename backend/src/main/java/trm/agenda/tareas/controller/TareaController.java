@@ -70,7 +70,7 @@ public class TareaController {
         tarea.orElseThrow(() -> new EntityNotFoundException(id, Tarea.class));
 
         this.tareaRepository.save(this.actualizarTarea(tarea.get(), task));
-        return ResponseEntity.ok(task);
+        return ResponseEntity.ok(tarea.get());
     }
 
     // Busca por id
