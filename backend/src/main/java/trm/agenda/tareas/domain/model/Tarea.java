@@ -4,11 +4,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 
-import trm.agenda.AgendaApplication;
 import trm.agenda.authentication.domain.model.Usuario;
 import trm.agenda.categorias.domain.model.Categoria;
-import trm.agenda.response.exception.EntityNotFoundException;
-import trm.agenda.tareas.domain.repository.TareaRepository;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

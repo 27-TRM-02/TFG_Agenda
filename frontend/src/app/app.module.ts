@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HomeComponent } from './components/home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TareasModule } from './tareas/tareas.module';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -47,6 +48,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSnackBarModule,
     HttpClientModule,
     FlexLayoutModule,
+    TareasModule,
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent],
