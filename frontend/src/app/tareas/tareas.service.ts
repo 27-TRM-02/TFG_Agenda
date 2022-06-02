@@ -47,6 +47,13 @@ export class TareasService {
   }
 
   // Método listar tareas cercanas a la fecha actual
+  public findUpcoming(): Observable<Array<Tarea>> {
+    return this.httpClient.get<Array<Tarea>>(
+      `${environment.apiUrl}/tarea/upcoming`
+    );
+  }
+
+  // Método listar tareas cercanas a los dias pasados por parámetro
   public findUpcomingDate(days: number): Observable<Array<Tarea>> {
     return this.httpClient.get<Array<Tarea>>(
       `${environment.apiUrl}/tarea/upcoming/${days}`

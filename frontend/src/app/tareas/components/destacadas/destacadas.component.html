@@ -1,18 +1,15 @@
-<h1 class="titulo">LISTA DE TODAS LAS TAREAS</h1>
-<div class="tareas-list">
+<h1 class="titulo">LISTA DE TODAS LAS TAREAS DESTACADAS</h1>
+<div class="tareas-highlighted">
   <div fxLayout="row wrap">
     <div fxFlex="25%" *ngFor="let tarea of tareas">
-      <p></p>
       <mat-card class="tarea mat-elevation-z4">
         <mat-card-subtitle>{{ tarea.date | date: "d-MM-Y" }}</mat-card-subtitle>
-        <mat-card-title
-          ><p>{{ tarea.title }}</p></mat-card-title
-        >
+        <mat-card-title>{{ tarea.title }}</mat-card-title>
         <mat-card-content>
           <p>{{ tarea.description }}</p>
         </mat-card-content>
 
-        <mat-card-content *ngFor="let categoria of tareas">
+        <mat-card-content>
           <p>{{ tarea.categorias }}</p>
         </mat-card-content>
 

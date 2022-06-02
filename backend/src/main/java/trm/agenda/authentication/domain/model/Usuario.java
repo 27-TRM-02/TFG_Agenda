@@ -37,8 +37,6 @@ public class Usuario {
     private String password;
 
     // Declaracion de campo email
-    // TODO: Añadir expresión regular formato mail
-
     @NotNull
     @Column(nullable = false, length = 40)
     @Size(min = 10, max = 40)

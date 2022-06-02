@@ -81,7 +81,7 @@ public class CategoriaController {
         categoria.orElseThrow(() -> new EntityNotFoundException(id, Categoria.class));
 
         this.categoriaRepository.save(this.actualizarCategoria(categoria.get(), category));
-        return ResponseEntity.ok(category);
+        return ResponseEntity.ok(categoria.get());
     }
 
     @DeleteMapping("/delete/{id}")
