@@ -3,7 +3,7 @@
     <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
     <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
-  <a mat-button class="app-title" routerLink="/">{{ "Angular" }}</a>
+  <a mat-button class="app-title" routerLink="/">{{ "Agenda" }}</a>
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -23,7 +23,7 @@
         <a
           mat-list-item
           class="menu-button"
-          routerLink="/category"
+          routerLink="/categoria"
           (click)="sidenav.close()"
         >
           <mat-icon>label</mat-icon>

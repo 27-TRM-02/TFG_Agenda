@@ -1,1 +1,37 @@
-<p>list-categorias works!</p>
+<div class="title-wrapper">
+  <span class="titulo mat-headline">Lista de todas las categorías</span>
+</div>
+<div class="categorias-list">
+  <div fxLayout="row wrap">
+    <div fxFlex="25%" *ngFor="let categoria of categorias">
+      <p></p>
+      <mat-card class="categoria-container">
+        <mat-card-title>
+          <p>{{ categoria.title }}</p>
+        </mat-card-title>
+        <mat-card-content>
+          {{ categoria.description }}
+        </mat-card-content>
+
+        <mat-divider inset></mat-divider>
+        <mat-card-actions>
+          <a
+            mat-button
+            [routerLink]="['/tarea/edit', categoria.id]"
+            color="accent"
+          >
+            Edit
+          </a>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="openDeleteDialog(categoria.id)"
+          >
+            Delete
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      <p></p>
+    </div>
+  </div>
+</div>

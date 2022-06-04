@@ -25,6 +25,7 @@ import trm.agenda.authentication.domain.model.Usuario;
 import trm.agenda.authentication.domain.repository.UsuarioRepository;
 import trm.agenda.authentication.utility.AuthenticationUtility;
 import trm.agenda.categorias.domain.model.Categoria;
+import trm.agenda.categorias.domain.model.dto.DeleteCategoriaDto;
 import trm.agenda.categorias.domain.repository.CategoriaRepository;
 import trm.agenda.response.exception.EntityNotFoundException;
 
@@ -85,7 +86,7 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Categoria> deleteById(@PathVariable UUID id) {
+    public ResponseEntity<DeleteCategoriaDto> deleteById(@PathVariable UUID id) {
         // UUID del usuario activo
         UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
         // Almacenamamos en "categoria" la categoria buscada por su id
@@ -95,7 +96,7 @@ public class CategoriaController {
         // Borramos categoria de la bbdd -> se busca por el objeto
         this.categoriaRepository.delete(categoria.get());
         // Devuelve json de la tarea eliminada
-        return ResponseEntity.ok(categoria.get());
+        return ResponseEntity.ok(new DeleteCategoriaDto(categoria.get().getId(), categoria.get().getTitle()));
     }
 
     // Actualiza Categoría

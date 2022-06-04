@@ -7,6 +7,6 @@ export interface Tarea {
   date: Date;
   description?: String;
   highlighted: boolean;
-  categorias: Array<Categoria>;
+  categories: Array<Categoria>;
   owner: User;
 }

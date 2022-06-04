@@ -1,4 +1,4 @@
-<h1 class="titulo">LISTA DE TODAS LAS TAREAS DESTACADAS</h1>
+<span class="titulo">LISTA DE TODAS LAS TAREAS DESTACADAS</span>
 <div class="tareas-highlighted">
   <div fxLayout="row wrap">
     <div fxFlex="25%" *ngFor="let tarea of tareas">
@@ -7,10 +7,6 @@
         <mat-card-title>{{ tarea.title }}</mat-card-title>
         <mat-card-content>
           <p>{{ tarea.description }}</p>
-        </mat-card-content>
-
-        <mat-card-content>
-          <p>{{ tarea.categorias }}</p>
         </mat-card-content>
 
         <mat-divider inset></mat-divider>
