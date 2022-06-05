@@ -12,12 +12,24 @@
         <mat-card-content>
           {{ categoria.description }}
         </mat-card-content>
+        <p>
+          <mat-chip-list>
+            <mat-chip>
+              <mat-chip-avatar>
+                <span
+                  class="categoria-color"
+                  [style.background-color]="categoria.color"
+                ></span>
+              </mat-chip-avatar>
+            </mat-chip>
+          </mat-chip-list>
+        </p>
 
         <mat-divider inset></mat-divider>
         <mat-card-actions>
           <a
             mat-button
-            [routerLink]="['/tarea/edit', categoria.id]"
+            [routerLink]="['/categoria/edit', categoria.id]"
             color="accent"
           >
             Edit

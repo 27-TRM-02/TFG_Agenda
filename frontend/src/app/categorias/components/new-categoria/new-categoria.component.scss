@@ -1,0 +1,35 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.form-actions {
+  margin: 0.5em;
+  text-align: center;
+}
+
+.title-wrapper {
+  text-align: center;
+  margin: 2em;
+
+  .titulo {
+    font-size: xx-large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: uppercase;
+  }
+}

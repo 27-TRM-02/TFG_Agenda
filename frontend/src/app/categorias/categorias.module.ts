@@ -14,6 +14,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+  MAT_COLOR_FORMATS,
+  NgxMatColorPickerModule,
+  NGX_MAT_COLOR_FORMATS,
+} from '@angular-material-components/color-picker';
 
 @NgModule({
   declarations: [
@@ -38,12 +47,12 @@ import { MatChipsModule } from '@angular/material/chips';
         canActivate: [AuthGuard],
       },
       {
-        path: '{id}',
+        path: ':id',
         component: SearchCategoriaComponent,
         canActivate: [AuthGuard],
       },
       {
-        path: 'edit/{id}',
+        path: 'edit/:id',
         component: EditCategoriaComponent,
         canActivate: [AuthGuard],
       },
@@ -54,8 +63,16 @@ import { MatChipsModule } from '@angular/material/chips';
     FlexLayoutModule,
     MatDialogModule,
     MatChipsModule,
+    MatInputModule,
+    MatIconModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    NgxMatColorPickerModule,
   ],
-  providers: [CategoriasService],
-  exports: [RouterModule, DeleteCategoriaComponent],
+  providers: [
+    CategoriasService,
+    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS },
+  ],
+  exports: [RouterModule, DeleteCategoriaComponent, SearchCategoriaComponent],
 })
 export class CategoriasModule {}

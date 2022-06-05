@@ -21,7 +21,7 @@ export class CategoriasService {
   }
 
   // Método para crear una nueva categoria
-  public newTarea(newCategoria: NewCategoria): Observable<Categoria> {
+  public newCategoria(newCategoria: NewCategoria): Observable<Categoria> {
     return this.httpClient.post<Categoria>(
       `${environment.apiUrl}/categoria/new`,
       newCategoria
@@ -36,7 +36,7 @@ export class CategoriasService {
   }
 
   // Método para editar categoria por su id
-  public editTarea(
+  public editCategoria(
     id: String,
     categoriaActualizada: NewCategoria
   ): Observable<Categoria> {

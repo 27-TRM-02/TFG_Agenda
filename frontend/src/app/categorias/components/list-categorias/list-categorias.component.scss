@@ -2,6 +2,15 @@
   margin: 0.75em;
 }
 
+mat-chip {
+  mat-chip-avatar {
+    span.categoria-color {
+      height: 2em;
+      width: 2em;
+    }
+  }
+}
+
 mat-card-title {
   width: 200px;
 }

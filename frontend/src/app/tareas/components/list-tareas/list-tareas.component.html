@@ -14,7 +14,10 @@
           <p>{{ tarea.description }}</p>
           <p>
             <mat-chip-list>
-              <mat-chip *ngFor="let categoria of tarea.categories">
+              <mat-chip
+                *ngFor="let categoria of tarea.categories"
+                [routerLink]="['/categoria', categoria.id]"
+              >
                 <mat-chip-avatar>
                   <span
                     class="categoria-color"

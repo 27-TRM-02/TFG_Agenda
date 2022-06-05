@@ -21,6 +21,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { AuthGuard } from '../authentication/auth.guard';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -49,18 +53,18 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
         canActivate: [AuthGuard],
       },
       {
-        path: 'upcoming/{days}',
+        path: 'upcoming/:days',
         component: UpcomingDaysTareasComponent,
         canActivate: [AuthGuard],
       },
       {
-        path: 'edit/{id}',
+        path: 'edit/:id',
         component: EditarTareaComponent,
         canActivate: [AuthGuard],
       },
       { path: 'new', component: NewTareaComponent, canActivate: [AuthGuard] },
       {
-        path: '{id}',
+        path: ':id',
         component: SearchTareaComponent,
         canActivate: [AuthGuard],
       },
@@ -73,6 +77,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatChipsModule,
     MatInputModule,
     MatDatepickerModule,
+    MatIconModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    ReactiveFormsModule,
   ],
   providers: [TareasService],
   exports: [
