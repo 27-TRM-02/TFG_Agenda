@@ -4,6 +4,16 @@
     <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
   <a mat-button class="app-title" routerLink="/">{{ "Agenda" }}</a>
+  <span class="app-spacer"></span>
+  <ng-container *ngIf="userIsAuthenticated()">
+    <app-logout></app-logout>
+  </ng-container>
+  <ng-container *ngIf="!userIsAuthenticated()">
+    <a mat-button routerLink="/auth/login">
+      <mat-icon>login</mat-icon>
+      Login
+    </a>
+  </ng-container>
 </mat-toolbar>
 
 <mat-sidenav-container>

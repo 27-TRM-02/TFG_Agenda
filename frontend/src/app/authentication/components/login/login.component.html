@@ -8,9 +8,9 @@
         <mat-label>Username</mat-label>
         <input matInput placeholder="Username" formControlName="username" />
         <mat-icon matSuffix>account_circle</mat-icon>
-        <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
-          >The username cannot be empty</mat-error
-        >
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          The username cannot be empty
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Password</mat-label>
@@ -21,9 +21,9 @@
           type="password"
         />
         <mat-icon matSuffix>password</mat-icon>
-        <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
-          >The password cannot be empty</mat-error
-        >
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          The password cannot be empty
+        </mat-error>
       </mat-form-field>
     </div>
     <mat-divider></mat-divider>
@@ -37,6 +37,7 @@
       >
         Log In
       </button>
+      <a mat-stroked-button routerLink="/auth/signup">Registrarse</a>
     </div>
   </form>
 </div>
