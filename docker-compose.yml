@@ -25,7 +25,7 @@ services:
       - 8080:8080
       - 8000:8000
     volumes:
-      - .:/home/${USERNAME}/app:rw
+      - ./backend:/home/${USERNAME}/app:rw
     environment:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
@@ -36,6 +36,22 @@ services:
       JWT_EXPIRATION: ${JWT_EXPIRATION}
     depends_on:
       - db
+    # TODO: See how can this be avoided
+    tty: true
+  angular-frontend:
+    user: ${USER}:${USER}
+    build:
+      context: ./frontend
+      args:
+        uid: ${UID}
+        gid: ${GID}
+        username: ${USERNAME}
+    ports:
+      - 4200:4200
+    volumes:
+      - ./frontend:/home/${USERNAME}/app:rw
+    depends_on:
+      - spring-backend
     # TODO: See how can this be avoided
     tty: true
   phpmyadmin:
