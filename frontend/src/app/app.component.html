@@ -3,7 +3,7 @@
     <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
     <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
-  <a mat-button class="app-title" routerLink="/">{{ "Agenda" }}</a>
+  <a mat-button class="app-title" routerLink="/">{{ "AGENDA" }}</a>
   <span class="app-spacer"></span>
   <ng-container *ngIf="userIsAuthenticated()">
     <app-logout></app-logout>
@@ -23,11 +23,38 @@
         <a
           mat-list-item
           class="menu-button"
-          routerLink="/task"
+          routerLink="/tarea"
           (click)="sidenav.close()"
         >
-          <mat-icon>checklist</mat-icon>
-          <span>Tasks</span>
+          <mat-icon>home</mat-icon>
+          <span>Tareas</span>
+        </a>
+        <a
+          mat-list-item
+          class="menu-button"
+          routerLink="/tarea/highlighted"
+          (click)="sidenav.close()"
+        >
+          <mat-icon>star</mat-icon>
+          <span>Tareas Destacadas</span>
+        </a>
+        <a
+          mat-list-item
+          class="menu-button"
+          routerLink="/tarea/upcoming"
+          (click)="sidenav.close()"
+        >
+          <mat-icon>event</mat-icon>
+          <span>Próximas Tareas</span>
+        </a>
+        <a
+          mat-list-item
+          class="menu-button"
+          routerLink="/tarea/new"
+          (click)="sidenav.close()"
+        >
+          <mat-icon>add_task</mat-icon>
+          <span>Nueva Tarea</span>
         </a>
 
         <a
@@ -36,14 +63,23 @@
           routerLink="/categoria"
           (click)="sidenav.close()"
         >
-          <mat-icon>label</mat-icon>
-          <span>Categories</span>
+          <mat-icon>category</mat-icon>
+          <span>Categorías</span>
+        </a>
+        <a
+          mat-list-item
+          class="menu-button"
+          routerLink="/categoria/new"
+          (click)="sidenav.close()"
+        >
+          <mat-icon>create_new_folder</mat-icon>
+          <span>Nueva Categoría</span>
         </a>
       </mat-nav-list>
     </ng-container>
   </mat-sidenav>
   <mat-sidenav-content (click)="sidenav && sidenav.close()">
-    <div class="content" fxLayoutAlign="center" fxFlexFill>
+    <div class="content" fxFlexFill>
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

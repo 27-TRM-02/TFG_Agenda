@@ -32,13 +32,13 @@ export class ListCategoriasComponent implements OnInit {
     });
   }
 
-  // funcion que abre el diálogo delete tarea
+  // funcion que abre el diálogo delete categoría
   openDeleteDialog(id: String) {
     const dialogRef = this.deleteDialog.open(DeleteCategoriaComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
         this.categoriasService.deleteById(id).subscribe({
-          next: (tareaOrError: Categoria) => {
+          next: (catOrError: Categoria) => {
             // Se ha borrado correctamente, vuelve a list tareas
             this.router.navigate(['/categoria']);
           },
@@ -49,5 +49,10 @@ export class ListCategoriasComponent implements OnInit {
         });
       }
     });
+  }
+
+  // Función que abre search categoria
+  openCategoria(id: String) {
+    this.router.navigate([`/categoria/${id}`]);
   }
 }

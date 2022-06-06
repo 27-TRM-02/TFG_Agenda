@@ -13,12 +13,14 @@ import { DeleteTareaComponent } from '../delete-tarea/delete-tarea.component';
 })
 export class UpcomingTareasComponent implements OnInit {
   // Declaración variables de clase
+  daysOffset: number;
   tareas: Array<Tarea>;
   constructor(
     private tareasService: TareasService,
     private router: Router,
     public deleteDialog: MatDialog
   ) {
+    this.daysOffset = 3;
     this.tareas = [];
   }
 

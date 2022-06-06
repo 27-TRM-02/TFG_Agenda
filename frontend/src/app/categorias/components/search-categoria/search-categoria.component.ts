@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriasService } from '../../categorias.service';
 import { Categoria } from '../../dto/categoria';
+import { DeleteCategoriaComponent } from '../delete-categoria/delete-categoria.component';
 
 @Component({
   selector: 'app-search-categoria',
@@ -14,7 +16,8 @@ export class SearchCategoriaComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private router: Router,
-    private categoriasService: CategoriasService
+    private categoriasService: CategoriasService,
+    public deleteDialog: MatDialog
   ) {
     this.categoria = {} as Categoria;
     this.categoriaId = '';
@@ -34,6 +37,25 @@ export class SearchCategoriaComponent implements OnInit {
         });
       },
       error: (error) => console.log(error),
+    });
+  }
+
+  // funcion que abre el diálogo delete categoría
+  openDeleteDialog(id: String) {
+    const dialogRef = this.deleteDialog.open(DeleteCategoriaComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.categoriasService.deleteById(id).subscribe({
+          next: (catOrError: Categoria) => {
+            // Se ha borrado correctamente, vuelve a list tareas
+            this.router.navigate(['/categoria']);
+          },
+          error: (error) => {
+            // Ha habido algún error
+            console.log(error);
+          },
+        });
+      }
     });
   }
 }

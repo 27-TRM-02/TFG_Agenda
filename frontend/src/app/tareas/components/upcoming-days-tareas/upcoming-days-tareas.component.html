@@ -1,11 +1,15 @@
 <div class="title-wrapper">
+  <a class="back-button" mat-stroked-button routerLink="/tarea">
+    <mat-icon>arrow_back</mat-icon>
+    Volver
+  </a>
   <span class="titulo mat-headline"
     >Lista de tareas de los próximos {{ daysOffset }} días
   </span>
 </div>
 <div>
-  <mat-form-field class="example-full-width" appearance="outline">
-    <mat-label>Título tarea</mat-label>
+  <mat-form-field class="select-dias" appearance="outline">
+    <mat-label>Próximos días</mat-label>
     <input
       matInput
       type="number"
@@ -20,7 +24,7 @@
 
 <div class="tareas-list">
   <div fxLayout="row wrap">
-    <div fxFlex="25%" *ngFor="let tarea of tareas">
+    <div fxFlex="20%" *ngFor="let tarea of tareas">
       <p></p>
       <mat-card class="tarea-container">
         <mat-card-subtitle>{{ tarea.date | date: "d-MM-Y" }}</mat-card-subtitle>

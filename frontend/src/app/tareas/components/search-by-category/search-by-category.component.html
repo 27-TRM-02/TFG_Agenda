@@ -1,5 +1,9 @@
 <div class="title-wrapper">
-  <span class="titulo mat-headline">todas las tareas</span>
+  <a class="back-button" mat-stroked-button routerLink="/tarea">
+    <mat-icon>arrow_back</mat-icon>
+    Volver
+  </a>
+  <span class="titulo mat-headline">Tareas por categoría</span>
 </div>
 <div>
   <p>
@@ -7,6 +11,7 @@
       <mat-label>Buscar tarea por categoría</mat-label>
       <mat-select
         #categoriasSelector
+        [value]="categoriasSelector"
         (valueChange)="openSearchByCategory(categoriasSelector.value)"
       >
         <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
@@ -23,7 +28,7 @@
 </div>
 <div class="tareas-list">
   <div fxLayout="row wrap">
-    <div fxFlex="20%" *ngFor="let tarea of tareas">
+    <div fxFlex="25%" *ngFor="let tarea of tareas">
       <p></p>
       <mat-card class="tarea-container">
         <mat-card-subtitle>{{ tarea.date | date: "d-MM-Y" }}</mat-card-subtitle>

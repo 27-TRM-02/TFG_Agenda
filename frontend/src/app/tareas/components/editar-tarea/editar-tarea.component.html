@@ -1,66 +1,80 @@
-<div class="title-wrapper">
-  <span class="titulo mat-headline">Editar tarea</span>
-</div>
+<div class="general">
+  <a class="back-button" mat-stroked-button routerLink="/tarea">
+    <mat-icon>arrow_back</mat-icon>
+    Volver
+  </a>
+  <div class="title-wrapper">
+    <span class="titulo mat-headline">Editar tarea</span>
+  </div>
 
-<form class="example-form" [formGroup]="formTarea" (ngSubmit)="editTarea()">
-  <mat-form-field class="example-full-width" appearance="outline">
-    <mat-label>Título tarea</mat-label>
-    <input
-      matInput
-      #message
-      required=""
-      maxlength="60"
-      placeholder="Ejemplo título tarea"
-      formControlName="title"
-    />
-    <mat-hint align="start"><strong>Obligatoria</strong> </mat-hint>
-    <mat-hint align="end">{{ message.value.length }} / 60</mat-hint>
-  </mat-form-field>
-  <p>
+  <form class="example-form" [formGroup]="formTarea" (ngSubmit)="editTarea()">
     <mat-form-field class="example-full-width" appearance="outline">
-      <mat-label>Selecciona fecha para la tarea</mat-label>
+      <mat-label>Título tarea</mat-label>
       <input
         matInput
-        [matDatepicker]="picker"
+        #message
         required=""
-        formControlName="date"
-      />
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field class="example-full-width" appearance="outline">
-      <mat-label>Selecciona Categorías</mat-label>
-      <mat-select formControlName="categories" multiple>
-        <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
-          {{ categoria.title }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field class="example-full-width" appearance="outline">
-      <mat-label>Descripción</mat-label>
-      <textarea
-        matInput
-        #description
         maxlength="60"
         placeholder="Ejemplo título tarea"
-        formControlName="description"
-      ></textarea>
+        formControlName="title"
+      />
       <mat-hint align="start"><strong>Obligatoria</strong> </mat-hint>
-      <mat-hint align="end">{{ description.value.length }} / 1024</mat-hint>
+      <mat-hint align="end">{{ message.value.length }} / 60</mat-hint>
     </mat-form-field>
-  </p>
-  <mat-slide-toggle class="example-margin" formControlName="highlighted">
-    Destacada
-  </mat-slide-toggle>
-  <mat-divider></mat-divider>
-  <div class="form-actions">
-    <button mat-raised-button color="warn" type="submit" class="form-submit">
-      EDITAR
-    </button>
-  </div>
-</form>
+    <p>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Selecciona fecha para la tarea</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          required=""
+          formControlName="date"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Selecciona Categorías</mat-label>
+        <mat-select formControlName="categories" multiple>
+          <mat-option
+            *ngFor="let categoria of categorias"
+            [value]="categoria.id"
+          >
+            {{ categoria.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Descripción</mat-label>
+        <textarea
+          matInput
+          #description
+          maxlength="60"
+          placeholder="Ejemplo título tarea"
+          formControlName="description"
+        ></textarea>
+        <mat-hint align="start"><strong>Obligatoria</strong> </mat-hint>
+        <mat-hint align="end">{{ description.value.length }} / 1024</mat-hint>
+      </mat-form-field>
+    </p>
+    <mat-slide-toggle class="example-margin" formControlName="highlighted">
+      Destacada
+    </mat-slide-toggle>
+    <mat-divider></mat-divider>
+    <div class="form-actions">
+      <button
+        mat-raised-button
+        color="warn"
+        type="submit"
+        class="form-submit example-full-width"
+      >
+        EDITAR
+      </button>
+    </div>
+  </form>
+</div>

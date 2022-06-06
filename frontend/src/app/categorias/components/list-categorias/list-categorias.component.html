@@ -7,7 +7,7 @@
       <p></p>
       <mat-card class="categoria-container">
         <mat-card-title>
-          <p>{{ categoria.title }}</p>
+          <p (click)="openCategoria(categoria.id)">{{ categoria.title }}</p>
         </mat-card-title>
         <mat-card-content>
           {{ categoria.description }}
