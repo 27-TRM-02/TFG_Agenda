@@ -1,11 +1,13 @@
 {
     "dockerComposeFile": "../docker-compose.yml",
     "workspaceFolder": "/home/trm/app",
-    "service": "spring-backend",
+    "service": "angular-frontend",
     "extensions": [
       "vscjava.vscode-java-pack",
       "vscjava.vscode-spring-initializr",
       "vscjava.vscode-spring-boot-dashboard",
-      "redhat.java"
+      "redhat.java",
+      "Angular.ng-template",
+      "johnpapa.angular-essentials"
     ]
   }

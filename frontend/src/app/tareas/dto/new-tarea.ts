@@ -5,5 +5,5 @@ export interface NewTarea {
   date: Date;
   description?: String;
   highlighted: boolean;
-  categorias: Array<Categoria>;
+  categories: Array<Categoria>;
 }

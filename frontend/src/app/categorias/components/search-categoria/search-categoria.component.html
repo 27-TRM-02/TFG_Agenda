@@ -1,1 +1,42 @@
-<p>search-categoria works!</p>
+<div class="title-wrapper">
+  <span class="titulo mat-headline">Busqueda de categoría</span>
+</div>
+
+<div class="categorias-list">
+  <div fxLayout="row wrap">
+    <div fxFlex="25%">
+      <p></p>
+      <mat-card class="categoria-container">
+        <mat-card-title>
+          <p>{{ categoria.title }}</p>
+        </mat-card-title>
+        <mat-card-content>
+          {{ categoria.description }}
+        </mat-card-content>
+        <p>
+          <mat-chip-list>
+            <mat-chip>
+              <mat-chip-avatar>
+                <span
+                  class="categoria-color"
+                  [style.background-color]="categoria.color"
+                ></span>
+              </mat-chip-avatar>
+            </mat-chip>
+          </mat-chip-list>
+        </p>
+        <mat-divider inset></mat-divider>
+        <mat-card-actions>
+          <a
+            mat-button
+            [routerLink]="['/categoria/edit', categoria.id]"
+            color="accent"
+          >
+            Edit
+          </a>
+          <a mat-button [routerLink]="['/tarea']" color="accent"> Volver </a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

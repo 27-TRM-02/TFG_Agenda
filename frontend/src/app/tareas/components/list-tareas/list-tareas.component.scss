@@ -1,10 +1,29 @@
-.tareas-list {
+.tarea-container {
+  margin: 0.75em;
 }
 
-mat-card {
+mat-card-title {
+  width: 200px;
 }
 
-.titulo {
+mat-card-content {
+  font-style: italic;
+}
+.title-wrapper {
   text-align: center;
-  text-decoration: underline;
+  margin: 2em;
+  .titulo {
+    font-size: xx-large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: uppercase;
+  }
+}
+
+mat-chip {
+  mat-chip-avatar {
+    span.categoria-color {
+      height: 2em;
+      width: 2em;
+    }
+  }
 }

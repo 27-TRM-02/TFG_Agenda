@@ -29,6 +29,7 @@ export class AuthenticationService {
         next: (userOrError: any) => {
           // No ha habido errores
           localStorage.setItem('token', userOrError.jwt);
+          localStorage.setItem('username', userOrError.username);
           this.router.navigate(['/']);
         },
         error: (error) => {
@@ -46,6 +47,12 @@ export class AuthenticationService {
     );
   }
 
+  public logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    this.router.navigate(['/login']);
+  }
+
   // Comprueba si el token del usuario está validado
   public userIsAuthenticated(): boolean {
     const token: string | null = this.getToken();
@@ -55,5 +62,9 @@ export class AuthenticationService {
   // Retorna el token del usuario activo
   public getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  public getUsername(): string {
+    return localStorage.getItem('username') || '';
   }
 }

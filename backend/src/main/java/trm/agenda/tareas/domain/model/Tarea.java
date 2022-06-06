@@ -3,7 +3,6 @@ package trm.agenda.tareas.domain.model;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
-
 import trm.agenda.authentication.domain.model.Usuario;
 import trm.agenda.categorias.domain.model.Categoria;
 
