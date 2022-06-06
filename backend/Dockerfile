@@ -11,4 +11,4 @@ COPY . /home/$username/app
 RUN chown -R $username:$username /home/$username/app
 WORKDIR /home/$username/app
 # Uncomment below line to auto-start app on container build
-# ENTRYPOINT ["./mvnw", "spring-boot:run"]
+ENTRYPOINT ["./mvnw", "spring-boot:run"]

@@ -11,9 +11,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SignupComponent } from './components/signup/signup.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent],
+  declarations: [LoginComponent, SignupComponent, LogoutComponent],
   imports: [
     CommonModule,
     // Asigna a las rutas de login y signup a los componentes que tienen que atenderlas
@@ -30,6 +31,6 @@ import { SignupComponent } from './components/signup/signup.component';
     FlexLayoutModule,
   ],
   providers: [AuthenticationService],
-  exports: [RouterModule],
+  exports: [RouterModule, LogoutComponent],
 })
 export class AuthenticationModule {}

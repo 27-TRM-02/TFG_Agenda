@@ -3,7 +3,17 @@
     <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
     <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
-  <a mat-button class="app-title" routerLink="/">{{ "Angular" }}</a>
+  <a mat-button class="app-title" routerLink="/">{{ "Agenda" }}</a>
+  <span class="app-spacer"></span>
+  <ng-container *ngIf="userIsAuthenticated()">
+    <app-logout></app-logout>
+  </ng-container>
+  <ng-container *ngIf="!userIsAuthenticated()">
+    <a mat-button routerLink="/auth/login">
+      <mat-icon>login</mat-icon>
+      Login
+    </a>
+  </ng-container>
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -23,7 +33,7 @@
         <a
           mat-list-item
           class="menu-button"
-          routerLink="/category"
+          routerLink="/categoria"
           (click)="sidenav.close()"
         >
           <mat-icon>label</mat-icon>
@@ -33,7 +43,7 @@
     </ng-container>
   </mat-sidenav>
   <mat-sidenav-content (click)="sidenav && sidenav.close()">
-    <div class="content" fxLayout="column" fxLayoutAlign="center" fxFlexFill>
+    <div class="content" fxLayoutAlign="center" fxFlexFill>
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

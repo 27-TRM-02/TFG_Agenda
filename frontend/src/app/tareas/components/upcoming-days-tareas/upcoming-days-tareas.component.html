@@ -1,0 +1,67 @@
+<div class="title-wrapper">
+  <span class="titulo mat-headline"
+    >Lista de tareas de los próximos {{ daysOffset }} días
+  </span>
+</div>
+<div>
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Título tarea</mat-label>
+    <input
+      matInput
+      type="number"
+      #days
+      min="0"
+      placeholder="Dias para las próximas días"
+      [value]="daysOffset"
+      (change)="openUpcomingDays(days.value)"
+    />
+  </mat-form-field>
+</div>
+
+<div class="tareas-list">
+  <div fxLayout="row wrap">
+    <div fxFlex="25%" *ngFor="let tarea of tareas">
+      <p></p>
+      <mat-card class="tarea-container">
+        <mat-card-subtitle>{{ tarea.date | date: "d-MM-Y" }}</mat-card-subtitle>
+        <mat-card-title>
+          <p (click)="openTarea(tarea.id)">{{ tarea.title }}</p>
+        </mat-card-title>
+        <mat-card-content>
+          <p>{{ tarea.description }}</p>
+          <p>
+            <mat-chip-list>
+              <mat-chip
+                *ngFor="let categoria of tarea.categories"
+                [routerLink]="['/categoria', categoria.id]"
+              >
+                <mat-chip-avatar>
+                  <span
+                    class="categoria-color"
+                    [style.background-color]="categoria.color"
+                  ></span>
+                </mat-chip-avatar>
+                {{ categoria.title }}
+              </mat-chip>
+            </mat-chip-list>
+          </p>
+        </mat-card-content>
+
+        <mat-divider inset></mat-divider>
+        <mat-card-actions>
+          <a mat-button [routerLink]="['/tarea/edit', tarea.id]" color="accent">
+            Edit
+          </a>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="openDeleteDialog(tarea.id)"
+          >
+            Delete
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      <p></p>
+    </div>
+  </div>
+</div>

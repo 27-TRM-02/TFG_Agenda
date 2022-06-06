@@ -27,6 +27,7 @@ import trm.agenda.authentication.domain.repository.UsuarioRepository;
 import trm.agenda.authentication.utility.AuthenticationUtility;
 import trm.agenda.response.exception.EntityNotFoundException;
 import trm.agenda.tareas.domain.model.Tarea;
+import trm.agenda.tareas.domain.model.dto.DeleteTareaDto;
 import trm.agenda.tareas.domain.repository.TareaRepository;
 
 @RestController
@@ -112,7 +113,7 @@ public class TareaController {
 
     // Borra tarea por su id
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Tarea> deleteById(@PathVariable UUID id) {
+    public ResponseEntity<DeleteTareaDto> deleteById(@PathVariable UUID id) {
         // UUID del usuario activo
         UUID ownerId = AuthenticationUtility.getCurrentUser().getId();
         // Almacenamamos en "tarea" la tarea buscada por su id
@@ -122,7 +123,7 @@ public class TareaController {
         // Borramos tarea de la bbdd -> se busca por el objeto
         this.tareaRepository.delete(tarea.get());
         // Devuelve json de la tarea eliminada
-        return ResponseEntity.ok(tarea.get());
+        return ResponseEntity.ok(new DeleteTareaDto(tarea.get().getId(), tarea.get().getTitle()));
     }
 
     // Busca tareas por categoria (id)

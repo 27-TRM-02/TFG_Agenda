@@ -1,0 +1,70 @@
+<div class="title-wrapper">
+  <span class="titulo mat-headline">Nueva categoria</span>
+</div>
+
+<form class="example-form" [formGroup]="categoria" (ngSubmit)="newCategoria()">
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Título categoría</mat-label>
+    <input
+      matInput
+      #message
+      required=""
+      maxlength="60"
+      placeholder="Ejemplo título categoría"
+      formControlName="title"
+    />
+    <mat-hint align="start"><strong>Obligatoria</strong> </mat-hint>
+    <mat-hint align="end">{{ message.value.length }} / 60</mat-hint>
+  </mat-form-field>
+
+  <p>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <textarea
+        matInput
+        #description
+        maxlength="1024"
+        placeholder="Ejemplo título categoría"
+        formControlName="description"
+      ></textarea>
+      <mat-hint align="start"><strong>Obligatoria</strong> </mat-hint>
+      <mat-hint align="end">{{ description.value.length }} / 1024</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="example-full-width">
+      <mat-label>Color</mat-label>
+      <input
+        matInput
+        [ngxMatColorPicker]="color"
+        formControlName="color"
+        required=""
+      />
+      <ngx-mat-color-toggle matSuffix [for]="color"></ngx-mat-color-toggle>
+      <ngx-mat-color-picker #color [touchUi]="false"></ngx-mat-color-picker>
+    </mat-form-field>
+  </p>
+
+  <mat-divider></mat-divider>
+  <div class="form-actions">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="form-submit example-full-width"
+      [disabled]="!categoria.valid"
+    >
+      Crear
+    </button>
+    <p>
+      <a
+        mat-stroked-button
+        [routerLink]="['/categoria']"
+        class="example-full-width"
+        color="warn"
+      >
+        Volver
+      </a>
+    </p>
+  </div>
+</form>

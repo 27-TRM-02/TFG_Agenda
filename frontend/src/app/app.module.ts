@@ -20,6 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './authentication/authentication.service';
 import { HomeComponent } from './components/home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TareasModule } from './tareas/tareas.module';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -47,8 +50,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSnackBarModule,
     HttpClientModule,
     FlexLayoutModule,
+    TareasModule,
+    MatNativeDateModule,
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, MatDatepickerModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
