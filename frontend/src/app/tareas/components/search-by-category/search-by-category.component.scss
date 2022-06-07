@@ -7,7 +7,13 @@
 }
 
 mat-card-title {
-  width: 200px;
+  padding-right: 0.5em;
+  text-align: center;
+
+  a {
+    white-space: pre-wrap;
+    text-align: start;
+  }
 }
 
 mat-card-content {
