@@ -24,12 +24,20 @@
 
 <div class="tareas-list">
   <div fxLayout="row wrap">
-    <div fxFlex="20%" *ngFor="let tarea of tareas">
+    <div
+      fxFlex="20%"
+      fxFlex.xs="100%"
+      fxFlex.sm="33%"
+      fxFlex.md="33%"
+      *ngFor="let tarea of tareas"
+    >
       <p></p>
       <mat-card class="tarea-container">
         <mat-card-subtitle>{{ tarea.date | date: "d-MM-Y" }}</mat-card-subtitle>
         <mat-card-title>
-          <p (click)="openTarea(tarea.id)">{{ tarea.title }}</p>
+          <a mat-button class="mat-title" [routerLink]="['/tarea/', tarea.id]">
+            {{ tarea.title }}
+          </a>
         </mat-card-title>
         <mat-card-content>
           <p>{{ tarea.description }}</p>

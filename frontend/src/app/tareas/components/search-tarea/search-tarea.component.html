@@ -9,17 +9,24 @@
 
   <div class="tarea-list">
     <div fxLayout="row wrap">
-      <div fxFlex="">
+      <div fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="33%" fxFlex.md="33%">
         <p></p>
         <mat-card class="tarea-container">
-          <mat-card-subtitle>{{
-            tarea.date | date: "d-MM-Y"
-          }}</mat-card-subtitle>
+          <mat-card-subtitle>
+            <strong>Fecha: </strong>
+            {{ tarea.date | date: "d-MM-Y" }}</mat-card-subtitle
+          >
           <mat-card-title>
             <p>{{ tarea.title }}</p>
           </mat-card-title>
           <mat-card-content>
-            <p>{{ tarea.description }}</p>
+            <p>
+              <strong>Descripción: </strong>
+              {{ tarea.description }}
+            </p>
+            <p>
+              <strong>Categorías: </strong>
+            </p>
             <p>
               <mat-chip-list>
                 <mat-chip

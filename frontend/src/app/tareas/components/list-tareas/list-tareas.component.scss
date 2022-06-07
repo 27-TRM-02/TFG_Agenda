@@ -9,10 +9,16 @@
 
 
 mat-card-title {
-  width: 200px;
+  padding-right: 0.5em;
+  text-align: center;
+  a {
+    white-space: pre-wrap;
+    text-align: start;
+  }
 }
 
 mat-card-content {
+  padding-right: 0.5em;
   font-style: italic;
 }
 
@@ -30,11 +36,12 @@ span.categoria-color {
 
 .title-wrapper {
   text-align: center;
-  margin: 2em;
+  padding: 1em;
   .titulo {
     font-size: xx-large;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-transform: uppercase;
+    text-align: center;
   }
 }
 

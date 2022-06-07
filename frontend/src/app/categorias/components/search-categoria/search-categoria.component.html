@@ -9,18 +9,20 @@
 
   <div class="categoria-list">
     <div fxLayout="row wrap">
-      <div fxFlex="">
+      <div fxFlex="100%">
         <p></p>
         <mat-card class="categoria-container">
           <mat-card-title>
             <p>{{ categoria.title }}</p>
           </mat-card-title>
           <mat-card-content>
+            <strong>Descripción: </strong>
             {{ categoria.description }}
           </mat-card-content>
           <p>
             <mat-chip-list>
               <mat-chip>
+                <strong style="padding: 0.5em">Color: </strong>
                 <mat-chip-avatar>
                   <span
                     class="categoria-color"

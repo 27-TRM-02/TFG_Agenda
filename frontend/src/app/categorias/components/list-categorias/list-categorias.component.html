@@ -3,11 +3,23 @@
 </div>
 <div class="categorias-list">
   <div fxLayout="row wrap">
-    <div fxFlex="25%" *ngFor="let categoria of categorias">
+    <div
+      fxFlex="20%"
+      fxFlex.xs="100%"
+      fxFlex.sm="33%"
+      fxFlex.md="33%"
+      *ngFor="let categoria of categorias"
+    >
       <p></p>
       <mat-card class="categoria-container">
         <mat-card-title>
-          <p (click)="openCategoria(categoria.id)">{{ categoria.title }}</p>
+          <a
+            mat-button
+            class="mat-title"
+            [routerLink]="['/categoria/', categoria.id]"
+          >
+            {{ categoria.title }}
+          </a>
         </mat-card-title>
         <mat-card-content>
           {{ categoria.description }}
