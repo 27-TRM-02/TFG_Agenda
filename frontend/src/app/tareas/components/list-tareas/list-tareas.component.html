@@ -1,14 +1,41 @@
 <div class="title-wrapper">
-  <span class="titulo mat-headline">Lista de todas las tareas</span>
+  <span class="titulo mat-headline">todas las tareas</span>
+</div>
+<div>
+  <p>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Buscar tareas por categoría</mat-label>
+      <mat-select
+        #categoriasSelector
+        (valueChange)="openSearchByCategory(categoriasSelector.value)"
+      >
+        <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+          <span
+            class="categoria-color"
+            [style.background-color]="categoria.color"
+          >
+          </span>
+          {{ categoria.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
 </div>
 <div class="tareas-list">
   <div fxLayout="row wrap">
-    <div fxFlex="25%" *ngFor="let tarea of tareas">
-      <p></p>
+    <div
+      fxFlex="20%"
+      fxFlex.xs="100%"
+      fxFlex.sm="33%"
+      fxFlex.md="33%"
+      *ngFor="let tarea of tareas"
+    >
       <mat-card class="tarea-container">
         <mat-card-subtitle>{{ tarea.date | date: "d-MM-Y" }}</mat-card-subtitle>
         <mat-card-title>
-          <p (click)="openTarea(tarea.id)">{{ tarea.title }}</p>
+          <a mat-button class="mat-title" [routerLink]="['/tarea/', tarea.id]">
+            {{ tarea.title }}
+          </a>
         </mat-card-title>
         <mat-card-content>
           <p>{{ tarea.description }}</p>

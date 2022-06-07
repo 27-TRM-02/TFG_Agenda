@@ -1,50 +1,70 @@
-<div class="title-wrapper">
-  <span class="titulo mat-headline">Busqueda de tarea</span>
-</div>
+<div class="contenedor-individual">
+  <div class="title-wrapper">
+    <a class="back-button" mat-stroked-button routerLink="/tarea">
+      <mat-icon>arrow_back</mat-icon>
+      Volver
+    </a>
+    <span class="titulo mat-headline">Búsqueda de tarea</span>
+  </div>
 
-<div class="tareas-list">
-  <div fxLayout="row wrap">
-    <div fxFlex="25%">
-      <p></p>
-      <mat-card class="tarea-container">
-        <mat-card-subtitle>{{ tarea.date | date: "d-MM-Y" }}</mat-card-subtitle>
-        <mat-card-title>
-          <p>{{ tarea.title }}</p>
-        </mat-card-title>
-        <mat-card-content>
-          <p>{{ tarea.description }}</p>
-          <p>
-            <mat-chip-list>
-              <mat-chip
-                *ngFor="let categoria of tarea.categories"
-                [routerLink]="['/categoria', categoria.id]"
-              >
-                <mat-chip-avatar>
-                  <span
-                    class="categoria-color"
-                    [style.background-color]="categoria.color"
-                  ></span>
-                </mat-chip-avatar>
-                {{ categoria.title }}
-              </mat-chip>
-            </mat-chip-list>
-          </p>
-        </mat-card-content>
-        <mat-divider inset></mat-divider>
-        <mat-card-actions>
-          <a mat-button [routerLink]="['/tarea/edit', tarea.id]" color="accent">
-            Edit
-          </a>
-          <button
-            mat-raised-button
-            color="warn"
-            (click)="openDeleteDialog(tarea.id)"
+  <div class="tarea-list">
+    <div fxLayout="row wrap">
+      <div fxFlex="100%">
+        <p></p>
+        <mat-card class="tarea-container">
+          <mat-card-subtitle>
+            <strong>Fecha: </strong>
+            {{ tarea.date | date: "d-MM-Y" }}</mat-card-subtitle
           >
-            Delete
-          </button>
-          <a mat-button [routerLink]="['/tarea']" color="accent"> Volver </a>
-        </mat-card-actions>
-      </mat-card>
+          <mat-card-title>
+            <p>{{ tarea.title }}</p>
+          </mat-card-title>
+          <mat-card-content>
+            <p>
+              <strong>Descripción: </strong>
+              {{ tarea.description }}
+            </p>
+            <p>
+              <strong>Categorías: </strong>
+            </p>
+            <p>
+              <mat-chip-list>
+                <mat-chip
+                  *ngFor="let categoria of tarea.categories"
+                  [routerLink]="['/categoria', categoria.id]"
+                >
+                  <mat-chip-avatar>
+                    <span
+                      class="categoria-color"
+                      [style.background-color]="categoria.color"
+                    ></span>
+                  </mat-chip-avatar>
+                  {{ categoria.title }}
+                </mat-chip>
+              </mat-chip-list>
+            </p>
+          </mat-card-content>
+          <mat-divider inset></mat-divider>
+          <mat-card-actions class="bot-buttons">
+            <a
+              class="edit-button"
+              mat-button
+              [routerLink]="['/tarea/edit', tarea.id]"
+              color="accent"
+            >
+              Edit
+            </a>
+            <button
+              class="delete-button"
+              mat-raised-button
+              color="warn"
+              (click)="openDeleteDialog(tarea.id)"
+            >
+              Delete
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
     </div>
   </div>
 </div>

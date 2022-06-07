@@ -70,7 +70,7 @@ export class TareasService {
   // Método para buscar tareas por su categoria
   public findByCategory(id: String): Observable<Array<Tarea>> {
     return this.httpClient.get<Array<Tarea>>(
-      `${environment.apiUrl}/tarea/category/${id}`
+      `${environment.apiUrl}/tarea/search/category/${id}`
     );
   }
 }

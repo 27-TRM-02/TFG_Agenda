@@ -12,6 +12,7 @@ import { Categoria } from 'src/app/categorias/dto/categoria';
 import { CategoriasService } from 'src/app/categorias/categorias.service';
 import { toPublicName } from '@angular/compiler/src/i18n/serializers/xmb';
 import { Tarea } from '../../dto/tarea';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-new-tarea',
@@ -21,16 +22,6 @@ import { Tarea } from '../../dto/tarea';
 export class NewTareaComponent implements OnInit {
   tarea: FormGroup;
   categorias: Array<Categoria>;
-  // Declaración y funcionalidad del datePicker
-  dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    if (view === 'month') {
-      const date = cellDate.getDate();
-
-      return date === 1 || date === 20 ? 'example-custom-date-class' : '';
-    }
-
-    return '';
-  };
 
   constructor(
     private tareasService: TareasService,
@@ -69,6 +60,10 @@ export class NewTareaComponent implements OnInit {
   }
 
   newTarea() {
+    this.tarea.value.date = (this.tarea.value.date as DateTime).toISO({
+      includeOffset: false,
+      suppressMilliseconds: true,
+    });
     this.tareasService.newTarea(this.tarea.value).subscribe({
       next: (tarea: Tarea) => this.router.navigate(['/tarea']),
       error: (error) => console.log(error),

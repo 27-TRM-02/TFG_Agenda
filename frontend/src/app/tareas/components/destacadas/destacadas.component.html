@@ -1,25 +1,56 @@
-<span class="titulo">LISTA DE TODAS LAS TAREAS DESTACADAS</span>
-<div class="tareas-highlighted">
+<div class="title-wrapper">
+  <span class="titulo mat-headline">Tareas destacadas</span>
+</div>
+
+<div class="tareas-list">
   <div fxLayout="row wrap">
-    <div fxFlex="25%" *ngFor="let tarea of tareas">
-      <mat-card class="tarea mat-elevation-z4">
+    <div
+      fxFlex="20%"
+      fxFlex.xs="100%"
+      fxFlex.sm="33%"
+      fxFlex.md="33%"
+      *ngFor="let tarea of tareas"
+    >
+      <p></p>
+      <mat-card class="tarea-container">
         <mat-card-subtitle>{{ tarea.date | date: "d-MM-Y" }}</mat-card-subtitle>
-        <mat-card-title>{{ tarea.title }}</mat-card-title>
+        <mat-card-title>
+          <a mat-button class="mat-title" [routerLink]="['/tarea/', tarea.id]">
+            {{ tarea.title }}
+          </a>
+        </mat-card-title>
         <mat-card-content>
           <p>{{ tarea.description }}</p>
+          <p>
+            <mat-chip-list>
+              <mat-chip
+                *ngFor="let categoria of tarea.categories"
+                [routerLink]="['/categoria', categoria.id]"
+              >
+                <mat-chip-avatar>
+                  <span
+                    class="categoria-color"
+                    [style.background-color]="categoria.color"
+                  ></span>
+                </mat-chip-avatar>
+                {{ categoria.title }}
+              </mat-chip>
+            </mat-chip-list>
+          </p>
         </mat-card-content>
 
         <mat-divider inset></mat-divider>
         <mat-card-actions>
-          <a mat-button [routerLink]="['/tarea/edit', tarea.id]" color="accent"
-            >Edit</a
-          >
-          <a
+          <a mat-button [routerLink]="['/tarea/edit', tarea.id]" color="accent">
+            Edit
+          </a>
+          <button
             mat-raised-button
-            [routerLink]="['/tarea/delete', tarea.id]"
             color="warn"
-            >Delete</a
+            (click)="openDeleteDialog(tarea.id)"
           >
+            Delete
+          </button>
         </mat-card-actions>
       </mat-card>
       <p></p>
