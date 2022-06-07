@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DateTime } from 'luxon';
 import { CategoriasService } from 'src/app/categorias/categorias.service';
 import { Categoria } from 'src/app/categorias/dto/categoria';
 import { Tarea } from '../../dto/tarea';
@@ -19,15 +20,6 @@ export class EditarTareaComponent implements OnInit {
   formTarea: FormGroup;
   categorias: Array<Categoria>;
   // Declaración y funcionalidad del datePicker
-  dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    if (view === 'month') {
-      const date = cellDate.getDate();
-
-      return date === 1 || date === 20 ? 'example-custom-date-class' : '';
-    }
-
-    return '';
-  };
   constructor(
     private activeRoute: ActivatedRoute,
     private tareasService: TareasService,
@@ -89,6 +81,10 @@ export class EditarTareaComponent implements OnInit {
   }
 
   editTarea() {
+    this.formTarea.value.date = (this.formTarea.value.date as DateTime).toISO({
+      includeOffset: false,
+      suppressMilliseconds: true,
+    });
     this.tareasService.editTarea(this.tareaId, this.formTarea.value).subscribe({
       next: (tareaCorrecta: Tarea) => this.router.navigate(['/tarea']),
       error: (error) => console.log(error),

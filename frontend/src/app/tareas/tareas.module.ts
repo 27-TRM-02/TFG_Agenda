@@ -25,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SearchByCategoryComponent } from './components/search-by-category/search-by-category.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     UpcomingTareasComponent,
     UpcomingDaysTareasComponent,
     NewTareaComponent,
+    SearchByCategoryComponent,
   ],
   imports: [
     CommonModule,
@@ -66,6 +68,11 @@ import { ReactiveFormsModule } from '@angular/forms';
       {
         path: ':id',
         component: SearchTareaComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'category/:id',
+        component: SearchByCategoryComponent,
         canActivate: [AuthGuard],
       },
     ]),

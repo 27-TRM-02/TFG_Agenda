@@ -1,0 +1,83 @@
+<div class="title-wrapper">
+  <a class="back-button" mat-stroked-button routerLink="/tarea">
+    <mat-icon>arrow_back</mat-icon>
+    Volver
+  </a>
+  <span class="titulo mat-headline">Tareas por categoría</span>
+</div>
+<div>
+  <p>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Buscar tareas por categoría</mat-label>
+      <mat-select
+        #categoriasSelector
+        [value]="categoriasSelector"
+        (valueChange)="openSearchByCategory(categoriasSelector.value)"
+      >
+        <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+          <span
+            class="categoria-color"
+            [style.background-color]="categoria.color"
+          >
+          </span>
+          {{ categoria.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+</div>
+<div class="tareas-list">
+  <div fxLayout="row wrap">
+    <div
+      fxFlex="20%"
+      fxFlex.xs="100%"
+      fxFlex.sm="33%"
+      fxFlex.md="33%"
+      *ngFor="let tarea of tareas"
+    >
+      <p></p>
+      <mat-card class="tarea-container">
+        <mat-card-subtitle>{{ tarea.date | date: "d-MM-Y" }}</mat-card-subtitle>
+        <mat-card-title>
+          <a mat-button class="mat-title" [routerLink]="['/tarea/', tarea.id]">
+            {{ tarea.title }}
+          </a>
+        </mat-card-title>
+        <mat-card-content>
+          <p>{{ tarea.description }}</p>
+          <p>
+            <mat-chip-list>
+              <mat-chip
+                *ngFor="let categoria of tarea.categories"
+                [routerLink]="['/categoria', categoria.id]"
+              >
+                <mat-chip-avatar>
+                  <span
+                    class="categoria-color"
+                    [style.background-color]="categoria.color"
+                  ></span>
+                </mat-chip-avatar>
+                {{ categoria.title }}
+              </mat-chip>
+            </mat-chip-list>
+          </p>
+        </mat-card-content>
+
+        <mat-divider inset></mat-divider>
+        <mat-card-actions>
+          <a mat-button [routerLink]="['/tarea/edit', tarea.id]" color="accent">
+            Edit
+          </a>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="openDeleteDialog(tarea.id)"
+          >
+            Delete
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      <p></p>
+    </div>
+  </div>
+</div>

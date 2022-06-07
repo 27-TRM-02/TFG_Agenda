@@ -48,6 +48,11 @@ export class EditCategoriaComponent implements OnInit {
         this.categoriasService.searchCategoria(this.categoriaId).subscribe({
           next: (cat: Categoria) => {
             this.categoria = cat;
+            this.formCategoria.setValue({
+              title: this.categoria.title,
+              description: this.categoria.description,
+              color: this.hexStringToColor(this.categoria.color),
+            });
             console.log(this.categoria);
           },
           error: (error) => console.log(error),

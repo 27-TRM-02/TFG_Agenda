@@ -1,5 +1,56 @@
-.categoria-container {
-  margin: 0.75em;
+.contenedor-individual {
+  width: 90%;
+  margin: 0 auto;
+
+  .title-wrapper {
+    text-align: center;
+    margin: 2em;
+
+    .titulo {
+      font-size: xx-large;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      text-transform: uppercase;
+    }
+  }
+
+  .categoria-list {
+    margin: 0 auto;
+    width: 75%;
+
+    .categoria-container {
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 50%;
+      border-radius: 10px;
+      padding: 30px;
+
+      .bot-buttons {
+        text-align: center;
+        padding: 0.5em;
+        width: 100%;
+      }
+    }
+  }
+}
+
+mat-card-title {
+  width: 400px;
+}
+
+mat-card-content {
+  font-style: italic;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+span.categoria-color {
+  display: inline-block;
+  border-radius: 100%;
+  height: 1em;
+  width: 1em;
+  vertical-align: middle;
 }
 
 mat-chip {
@@ -11,21 +62,9 @@ mat-chip {
   }
 }
 
-mat-card-title {
-  width: 200px;
-}
-
-mat-card-content {
-  font-style: italic;
-}
-
-.title-wrapper {
-  text-align: center;
-  margin: 2em;
-
-  .titulo {
-    font-size: xx-large;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-transform: uppercase;
-  }
+a.back-button {
+  align-self: flex-start;
+  text-align: left;
+  padding: 0.2em;
+  margin-right: 95%;
 }

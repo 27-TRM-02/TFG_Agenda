@@ -1,6 +1,30 @@
-div.form-actions {
-  display: flex;
-  button, a {
-    flex: 1 1 auto;
+
+div.login-form {
+  align-self: center;
+  form {
+    div.form-label {
+      text-align: center;
+      margin-bottom: 1em;
+      font-size: xx-large;
+    }
+  padding: 2em;
+    div.form-fields {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+
+      mat-form-field {
+        width: 100%;
+      }
+    }
   }
+    div.form-actions {
+      display: flex;
+      flex-direction: row;
+
+      button,
+      a {
+        flex: 1 1 auto;
+      }
+    }
 }

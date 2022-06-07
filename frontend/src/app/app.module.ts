@@ -21,8 +21,12 @@ import { AuthenticationService } from './authentication/authentication.service';
 import { HomeComponent } from './components/home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TareasModule } from './tareas/tareas.module';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  MatLuxonDateModule,
+  MAT_LUXON_DATE_FORMATS,
+} from '@angular/material-luxon-adapter';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -51,9 +55,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     HttpClientModule,
     FlexLayoutModule,
     TareasModule,
-    MatNativeDateModule,
+    MatLuxonDateModule,
   ],
-  providers: [AuthenticationService, MatDatepickerModule],
+  providers: [
+    AuthenticationService,
+    MatDatepickerModule,
+    { provide: MAT_DATE_FORMATS, useValue: MAT_LUXON_DATE_FORMATS },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
